@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitar reporte</title>
+</head>
+<body>
+    <a href="ventas.html">Consutar ventas</a>|
+        <a href="consultaVentasPersonalizadas.html">Consulta de ventas personalizadas</a>|
+        <a href="verSucursales.html">Ver sucursales</a>|
+        <a href="entrgas.html">Ver entregas</a>|
+        <a href="solicitarReporte.html">Solicitar reporte</a>
+    <section id="programarEntrega">
+        <form action="">
+            <label for="fechaEntrega">
+                Selecciona una fecha de entrega <input type="date" name="fechaEntrega" id="fechaEntrega"><br>
+            </label>
+            <label for="seleccionSucursal">
+                Selecciona las sucursales:
+                <br>
+                <select multiple name="seleccionSucursal" id="seleccionSucursal">
+                    <option value="todas">Todas</option>
+                </select>
+            </label>
+            <button type="submit" id="btnSolicitar">Solicitar</button>
+        </form>
+    </section>
+    <script src="../JavaScript/eventosSolicitarReporte.js"></script>
+</body>
+</html>

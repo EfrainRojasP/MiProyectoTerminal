@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <nav>
+        <a href="ventas.html">Consutar ventas</a>|
+        <a href="consultaVentasPersonalizadas.html">Consulta de ventas personalizadas</a>|
+        <a href="verSucursales.html">Ver sucursales</a>|
+        <a href="entrgas.html">Ver entregas</a>|
+        <a href="solicitarReporte.html">Solicitar reporte</a>|
+    </nav>
+    <section id="realizoConsulta">
+        <p>Consulta de ventas por:</p>
+    </section>
+    <section id="tablaConsulta">
+        <table id="tablaResultado"></table>
+    </section>
+    <section id="grafico">
+        <form action="">
+            <label for="generarGrafico">
+                <input type="checkbox" name="generarGrafico" id="generarGrafico"> Generar grafico
+            </label>
+            <label for="tipoGrafico">
+                <select name="tipoGrafico" id="tipoGrafico">
+                    <option value="graficoLinea">Linea</option>
+                    <option value="graficoBara">Barra</option>
+                </select>
+            </label>
+            <button type="submit" id="btnGenerar">Generar</button>
+        </form>
+    </section>
+    <script src="../JavaScript/eventosGenerarGrafico.js"></script>
+</body>
+</html>

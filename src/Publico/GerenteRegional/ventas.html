@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ventas</title>
+</head>
+<body>
+    <a href="ventas.html">Consutar ventas</a>|
+        <a href="consultaVentasPersonalizadas.html">Consulta de ventas personalizadas</a>|
+        <a href="verSucursales.html">Ver sucursales</a>|
+        <a href="entrgas.html">Ver entregas</a>|
+        <a href="solicitarReporte.html">Solicitar reporte</a>
+    <section id="contendVentas">
+        <p>Consulta de todas las ventas</p>
+        <p>Ganancia: <span id="gananciaVentas"></span></p>
+        <table id="tablaVentas">
+
+        </table>
+    </section>
+    <section id="contentGenerarGrafico">
+        <form action="">
+            <label for="generarGrafico">
+                <input type="checkbox" name="generarGrafico" id="generarGrafico"> Generar grafico
+                <br>
+            </label>
+            <label for="tipoGrafica">
+                Tipo de grafico 
+                <select name="tipoGrafica" id="tipoGrafica">
+                    <option value=""></option>
+                    <option value="tgBarras">Barras</option>
+                    <option value="tgLinea">Linea</option>
+                </select>
+                <br>
+            </label>
+            <label for="tipoGraficaInfo">
+                ¿Que desea saber?
+                <select name="tipoGraficaInfo" id="tipoGraficaInfo">
+                    <option value=""></option>
+                    <option value="cantidadVsSucursal">Cantidad vs Sucursal</option><!-- Cantidad de productos vendidos en cada sucursal -->
+                    <option value="cantidadVsFecha">Cantidad vs Fecha de venta</option><!-- Cantidad de productos vendidos por dia -->
+                    <option value="cantidadVsProducto">Cantidad vs Producto</option><!-- Cantidad de productos vendidos -->
+                </select>
+            </label>
+            <p id="infoGrafica">*</p>
+            <input type="submit" value="Generar grafico" id="btnGenerarGrafica">
+        </form>
+    </section>
+    <script src="../JavaScript/eventosVentas.js"></script>
+</body>
+</html>
