@@ -10,10 +10,12 @@ formulario.addEventListener("submit", async function (e) {
         passUser: passUsuario.value
     };
     console.log(login);
-    const res = await peticionFetch(login);
-    alert(res.rol);
-    console.log("sdsad", res.rol);
-    if(res.rol === "1"){
+    const resJSON = await peticionFetch(login);
+    if(!resJSON){
+        alert("USUARIO O CONTRASEÑA INCORRECTOS");
+        return;
+    }
+    if(resJSON.rolUsuario === 1){
         formulario.action = "../GerenteRegional/index.html"
     } else {
         formulario.action = "../Encargado/EncargadoSubirReporte.html"
@@ -29,12 +31,11 @@ async function peticionFetch(obj) {
         },
         body: JSON.stringify(obj)
     });
+    if(!response.ok){
+        return false;
+    }
 
     let result = await response.json();
-    //console.log(JSON.stringify(result));
-    if (result) {
-        alert(result);
-    }
-    
-    return JSON.parse(JSON.stringify(result));
+
+    return result;
 }
