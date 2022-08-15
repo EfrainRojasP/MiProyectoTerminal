@@ -3,10 +3,6 @@ import { ManagerAutentificacionAutorizacion } from "../Modulo_AutentificacionAut
 
 const cuentaRuter = Router();
 
-/*cuentaRuter.use((req, res, next) => {
-    mA = ManagerAutentificacionAutorizacion(e); 
-});*/
-
 cuentaRuter.post("/Ingresar", async (req, res) =>{
     const {emailUser, passUser}= req.body;
     const ma = new ManagerAutentificacionAutorizacion(emailUser, passUser);
@@ -20,5 +16,6 @@ cuentaRuter.post("/Ingresar", async (req, res) =>{
         rolUsuario: rolUsuario
     }).send();
 });
+
 
 export default cuentaRuter;
