@@ -26,10 +26,13 @@ export class ConexionLoginBD{
     consultarEmailUsuario(email){
         return new Promise((resolve, reject) => {
             const stm = "SELECT emailUsuario FROM Usuario WHERE emailUsuario = ?";
-            //const stm = "SELECT * FROM Usuario";
             const query = this.conexionMYSQL.query(stm, email, function (error, results, fields) {
                 if (error){
                     return reject(error.stack)
+                }
+                //Si el email no esta en la BD se envia flase
+                if(results[0] === undefined){
+                    return resolve(false);
                 }
                 const result = convertirRespuestaAObjeto(results);
                 return resolve(result[0].emailUsuario);
@@ -40,7 +43,6 @@ export class ConexionLoginBD{
     consultarGUIDUsuario(email){
         return new Promise((resolve, reject) => {
             const stm = "SELECT guidUsuaio FROM Usuario WHERE emailUsuario = ?";
-            //const stm = "SELECT * FROM Usuario";
             const query = this.conexionMYSQL.query(stm, email, function (error, results, fields) {
                 if (error){
                     return reject(error.stack)
@@ -54,18 +56,36 @@ export class ConexionLoginBD{
     consultarPasswordUsuario(email){
         return new Promise((resolve, reject) => {
             const stm = "SELECT passUsuario FROM Usuario WHERE emailUsuario = ?";
-            //const stm = "SELECT * FROM Usuario";
             const query = this.conexionMYSQL.query(stm, email, function (error, results, fields) {
                 if (error){
-                    return reject(error.stack)
+                    return reject(error.stack);
+                }
+                //Si el pass no esta en la BD se envia flase
+                if(results[0] === undefined){
+                    return resolve(false);
                 }
                 const result = convertirRespuestaAObjeto(results);
                 return resolve(result[0].passUsuario);
             });
         });
     }
+
+    consultarRolUsuario(email){
+        return  new Promise((resolve, reject) => {
+            const stm = "SELECT FK_tipoUsuario FROM Usuario WHERE emailUsuario = ?";
+            const query = this.conexionMYSQL.query(stm, email, function (error, results, fields) {
+                if (error){
+                    throw error.stack;
+                }
+                const result = convertirRespuestaAObjeto(results);
+                return resolve(result[0].FK_tipoUsuario)
+            });
+        });
+    }
+
 }
 
+    
 
     
 /*const conexionMYSQL = mysql.createConnection({
