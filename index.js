@@ -2,7 +2,7 @@ console.clear();
 
 import createExpressServer, { request, response } from "express";
 import { ConexionLoginBD } from "./src/ConexionBD/ConexionLoginBD.js";
-import * as url from 'url';
+
 import cuentaRuter from "./src/Rutas/login.js";
 import redirecPOST from "./src/Rutas/redireccionarPOST.js";
 import dotenv from "dotenv";
