@@ -2,22 +2,37 @@ import * as bcrypt from 'bcrypt';
 
 export class Autentificacion{
 
-    validarUsuarioEmail(emailUser, LoginBD) {
+    passUsuario;
+    emailUser;
+
+    constructor(passUsuario, emailUser) {
+        this.passUsuario = passUsuario;
+        this.emailUser = emailUser;
+    }
+
+    async validarUsuarioEmail(LoginBD) {
         try {
-            LoginBD.consultarEmailUsuario(emailUser);
-            return emailUser;
+            const emial = await LoginBD.consultarEmailUsuario(this.emailUser);
+            if(!emial){
+                return false;
+            }
+            return true;
         } catch (error) {
             return error;
         }
     }
 
-    async validarPassword(password, emailUser, LoginBD){
+    async validarPassword(LoginBD){
         try {
-            const passEncriptada = await LoginBD.consultarPasswordUsuario(emailUser);
-            const coincide = await bcrypt.compare(password, passEncriptada);
+            const passEncriptada = await LoginBD.consultarPasswordUsuario(this.emailUser);
+            if(!passEncriptada){
+                return false;
+            }
+            const coincide = await bcrypt.compare(this.passUsuario, passEncriptada);
             return coincide;
         } catch (error) {
-            return error;
+            throw error;
         }
+        
     }
 }
