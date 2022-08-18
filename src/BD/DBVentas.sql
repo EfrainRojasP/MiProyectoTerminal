@@ -107,5 +107,33 @@ CREATE TABLE Venta (
     FOREIGN KEY(FK_idProducto_Sucursal) REFERENCES Producto_Sucursal(idProducto_Sucursal)
 );
 
+INSERT INTO TipoEmpleado VALUES (NULL, "Gerente Regional");
+INSERT INTO TipoEmpleado VALUES (NULL, "Encargado");
+
+
+
 select * from entidad;
+select * from sucursal;
+select * from tipoproducto;
+select * from producto;
+select COUNT(*) from producto;
+select FK_idProducto, FK_idSucursal from producto_sucursal;
+select * from Sucursal_Entidad_Alcaldia;
+select * from almacen;
+select * from municipio_alcaldia where FK_idEntidad = 9;
+select idEmpleado from empleado where nombreEmpleado = "ADRIANA CAROLINA";
+select * from empleadosucursal;
+select e.*, s.* from empleadosucursal es 
+	inner join empleado e on es.FK_idEmpleado = e.idEmpleado
+    inner join sucursal s on es.FK_idSucursal = s.idSucursal;
+
+select p.nombreProducto from producto_sucursal ps inner join producto p on ps.FK_idProducto = p.idProducto where FK_idSucursal = 1;
+select * from producto_sucursal ps inner join producto p on ps.FK_idProducto = p.idProducto where FK_idSucursal = 1;
+select ps.idProducto_Sucursal from producto_sucursal ps inner join producto p on ps.FK_idProducto = p.idProducto where p.nombreProducto = 'SALSA VALENTINA ROJA 370 ML' and FK_idSucursal = 1;
+
+select * from venta;
+
+
+
+
 
