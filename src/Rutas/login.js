@@ -12,10 +12,15 @@ cuentaRuter.post("/Ingresar", async (req, res) =>{
         return res.sendStatus(404);
     }
     const rolUsuario = await ma.rolUsuario();
+    const token = await ma.crearToken("1h");
+    console.log(token.JWT);
+    //res.send(ma.crearToken());
     return res.json({
-        rolUsuario: rolUsuario
+        rolUsuario: rolUsuario,
+        token: token.JWT
     }).send();
 });
+
 
 
 export default cuentaRuter;
