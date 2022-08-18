@@ -1,5 +1,6 @@
 node_modules
 .env
-/BD/DER.pdf
-/BD/IMGDER.PNG
-/BD/ModeloDer.mwb
+
+/src/BD/DER.pdf
+/src/BD/IMGDER.PNG
+/src/BD/ModeloDer.mwb
