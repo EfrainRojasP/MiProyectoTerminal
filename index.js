@@ -14,11 +14,13 @@ const PUERTO = process.env.PUERTO;
 
 expressApp.use(createExpressServer.json());
 expressApp.use(createExpressServer.text());
-expressApp.use(createExpressServer.static("./src/Publico"))
+
+
+expressApp.use(createExpressServer.static("./src/Publico"));
 expressApp.use("/login.html", cuentaRuter);
 expressApp.use("", redirecPOST);
 
-const main = async () =>{
+const main = async () => {
     const crearConexionLogin = new ConexionLoginBD();
     try {
         await crearConexionLogin.iniciarConexionMYSQL();
@@ -26,7 +28,7 @@ const main = async () =>{
         console.error("ERROR EN LA CONEXION A LA BD", error);
         throw error;
     }
-    expressApp.listen(PUERTO, (request, response) =>{
+    expressApp.listen(PUERTO, (request, response) => {
         console.log("Servidor en el puerto: " + PUERTO);
     });
 };
