@@ -1,6 +1,7 @@
 import { Autentificacion } from "./Autentificacion.js";
 import { Autorizacion } from "./Autorizacion.js";
 import {ConexionLoginBD} from "../ConexionBD/ConexionLoginBD.js"
+import { Token } from "./Token.js";
 
 
 export class ManagerAutentificacionAutorizacion{
@@ -9,6 +10,7 @@ export class ManagerAutentificacionAutorizacion{
     conexionBDLogin;
     email;
     passUsuario;
+    token;
 
     constructor(email, passUsuario) {
         this.email = email;
@@ -31,6 +33,13 @@ export class ManagerAutentificacionAutorizacion{
         this.autorizacion = new Autorizacion(this.email);
         const rolUsuaio = await this.autorizacion.getROL(this.conexionBDLogin);
         return rolUsuaio;
+    }
+
+    async crearToken(tiempoDeVidaToken){
+        this.conexionBDLogin = new ConexionLoginBD();
+        const GUID = await this.conexionBDLogin.consultarGUIDUsuario(this.email);
+        this.token = new Token();
+        return this.token.crearToken(GUID,this.email, tiempoDeVidaToken);
     }
 
 }
