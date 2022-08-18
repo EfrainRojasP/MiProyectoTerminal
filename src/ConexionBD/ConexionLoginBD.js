@@ -47,6 +47,10 @@ export class ConexionLoginBD{
                 if (error){
                     return reject(error.stack)
                 }
+                //Si el GUID no esta en la BD se envia flase
+                if(results[0] === undefined){
+                    return resolve(false);
+                }
                 const result = convertirRespuestaAObjeto(results);
                 return resolve(result[0].guidUsuaio);
             });
