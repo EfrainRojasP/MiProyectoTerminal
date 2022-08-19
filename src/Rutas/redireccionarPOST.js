@@ -10,8 +10,10 @@ const __dirname = url.fileURLToPath(new URL('../Publico', import.meta.url));
 
 const redirecPOST = Router();
 
-
-redirecPOST.post("/validar", async (req, res) => {
+/**
+ * Validamos el gerente
+ */
+redirecPOST.post("/Validar/Gerente", async (req, res) => {
     const { authorization } = req.headers;
     const userToken = authorization.substring(7) !== "null" ?
                     authorization.substring(7) : false;
@@ -24,6 +26,7 @@ redirecPOST.post("/validar", async (req, res) => {
     if (!valido) {
         return res.status(404).send("LA SESION EXPIRO O NO ESTA LOGEADO");
     }
+    return res.send();
 });
 
 redirecPOST.post("/GerenteRegional/index.html", (req, res) =>{
