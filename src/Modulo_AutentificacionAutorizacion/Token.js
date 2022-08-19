@@ -20,22 +20,45 @@ export class Token{
 
     /**
      * 
-     * @returns Devulve verdadero si el token es valido
-     * Devulve false si el token no es valido
+     * @returns 
+     * Devulve verdadero si el token es valido
+     * Devulve false si el token no es valido o ha expirado
      */
     async verificarToken(token, loginDB){
-        const enconder = new TextEncoder();
-        const {payload} = await jwtVerify(
-            token,
-            enconder.encode(process.env.KEY_TOKEN)
-        );
-        console.log(payload);
-        const existeGUID = await loginDB.consultarGUIDUsuario(payload.email);
-        const existeEmail = await loginDB.consultarEmailUsuario(payload.email);
-        const validacion = !existeEmail || existeGUID !== payload.guid ? false : true;
-        return validacion;
+        try {
+            const enconder = new TextEncoder();
+            const {payload} = await jwtVerify(
+                token,
+                enconder.encode(process.env.KEY_TOKEN)
+            );
+            console.log(payload);
+            const existeGUID = await loginDB.consultarGUIDUsuario(payload.email);
+            const existeEmail = await loginDB.consultarEmailUsuario(payload.email);
+            const validacion = !existeEmail || existeGUID !== payload.guid ? false : true;
+            return validacion;
+        } catch (error) {
+            return false;
+        }
     }
 
-
+    /**
+     * 
+     * @param {jwtVerify} token
+     *  Token del usuaio
+     * @returns 
+     *  El GUID del usuario o falso si el token expiro
+     */
+    async extraerGUID(token){
+        try {
+            const enconder = new TextEncoder();
+            const {payload} = await jwtVerify(
+                token,
+                enconder.encode(process.env.KEY_TOKEN)
+            );
+            return payload.guid;
+        } catch (error) {
+            return false;
+        }
+    }
 
 }
