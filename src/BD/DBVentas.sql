@@ -110,7 +110,7 @@ CREATE TABLE Venta (
 INSERT INTO TipoEmpleado VALUES (NULL, "Gerente Regional");
 INSERT INTO TipoEmpleado VALUES (NULL, "Encargado");
 
-
+select * from empleado;
 
 select * from entidad;
 select * from sucursal;
