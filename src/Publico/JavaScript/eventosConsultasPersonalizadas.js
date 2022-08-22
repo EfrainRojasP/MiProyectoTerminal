@@ -57,6 +57,32 @@ var arrElementosProducto = [cualProducto, consulPorTipoProd, consulPorProdMasVen
 var arrCheckboxTienda = [cualTienda, consulPorMun, consulPorEnti];
 var arrCheckboxProducto = [cualProducto, consulPorTipoProd, consulPorProdMasVend, consulPorPordMenosVend];
 var arrCalendario = [periodoDesde, periodoHasta];
+
+/**
+ * Activa o desactiva las opciones, cuando el usuario ecogo la primera opcion (Todas o Todos)
+ * @param {Select} select Una lista multiple
+ * @param {boolean} activar 
+ * False => Indica que se activaran las opciones 
+ * True => Indica que se desativaran las opciones
+ */
+function activarDesactivarOpciones(select, activar) {
+    for(let i = 1; i < select.options.length; ++i){
+        select.options[i].disabled = activar;
+    }
+}
+
+/**
+ * Activa o desactiva las opciones, cuando el usuario ecogo la primera opcion (Todas o Todos)
+ * @param {Selectd} select Una lista multiple
+ */
+function selectionTodoas(select){
+    if(select.options[0].selected === true){
+        activarDesactivarOpciones(select, true);
+    } else {
+        activarDesactivarOpciones(select, false);
+    }
+}
+
 /*
 Funcion para activar/desactivar los chexboxes o calendarios
 1->Activar
@@ -114,6 +140,17 @@ function activarDesactivarConsulta(){
 //Nos muestra las opciones que el usuario escogio
 //retun -> Un arreglo de las opciones seleccionadas
 function opcionesSeleccionadas(select){
+    var arrOpciones = [];
+    //console.log(select.options);
+    for(var option of select.options){
+        if(option.selected){
+            arrOpciones.push(option.value);
+        }
+    }
+    return arrOpciones;
+}
+
+function opcionesSeleccionadasConsulta(select){
     var arrOpciones = [];
     //console.log(select.options);
     for(var option of select.options){
@@ -412,22 +449,27 @@ periodoHasta.onchange = function(){
 }
 
 cualTienda.onchange = function(){
+    selectionTodoas(cualTienda);
     añadirLosElementosSeleccionados("cuantasTiendas", cualTienda, " tiendas seleccionadas");
 }
 
 cualMun.onchange = function(){
+    selectionTodoas(cualMun);
     añadirLosElementosSeleccionados("cuantosMunAlca", cualMun, " Municipios/Alcaldias seleccionados");
 }
 
 cualEntidad.onchange = function(){
+    selectionTodoas(cualEntidad);
     añadirLosElementosSeleccionados("cuantasEntidades", cualEntidad, " Entidades seleccionadas");
 }
 
 cualProducto.onchange = function (){
+    selectionTodoas(cualProducto);
     añadirLosElementosSeleccionados("cuantosProductos", cualProducto, " Productos seleccionados");
 }
 
 cualTipoProducto.onchange = function (){
+    selectionTodoas(cualTipoProducto);
     añadirLosElementosSeleccionados("cuantosTipoProd", cualTipoProducto, " Tipos de productos seleccionados");
 }
 
@@ -439,7 +481,7 @@ texto -> Es el texto que aparecera en el span
 */
 function añadirLosElementosSeleccionados(id, select, texto){
     var span = document.getElementById(id);
-    var arrElementosSelecionados = opcionesSeleccionadas(select);
+    var arrElementosSelecionados = opcionesSeleccionadasConsulta(select);
     if(arrElementosSelecionados.length > 1){
         span.textContent = select.length + texto
     } else if(arrElementosSelecionados.length == 1) {
