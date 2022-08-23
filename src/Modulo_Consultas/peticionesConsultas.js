@@ -19,6 +19,25 @@ peticionesGerente.post("/TodasLasVentas", async (req, res) =>{
     return res.json(resConsulta).send();
 });
 
+peticionesGerente.post("/ConsultaPersonalizada", async (req, res) =>{
+    console.log("ENTREEEEEEEEEEEEEEEE");
+    const { authorization } = req.headers;
+    console.log("dawdwad " + authorization);
+    const consultaPer = req.body;
+    console.log(JSON.stringify(consultaPer));
+    console.log(consultaPer.porProducto);
+    const tokenGerente = extraerToken(authorization);
+    const token = new Token();
+    const GUID = await token.extraerGUID(tokenGerente);
+    const mc = new ManagerConsultas(GUID);
+    const resConsulta = await mc.consultaPersonalizada(consultaPer);
+    if(!resConsulta){
+        return res.sendStatus(401);
+    }
+    return res.json(resConsulta).send();
+    
+});
+
 peticionesGerente.post("/SucursaresACargo", async (req, res) =>{
     console.log("PETICION DE VENTAS");
     const { authorization } = req.headers;
@@ -74,6 +93,7 @@ peticionesGerente.post("/SucursaresACargo/Producto", async (req, res) =>{
     }
     return res.json(resConsulta).send();
 });
+
 
 peticionesGerente.post("/SucursaresACargo/TipoProducto", async (req, res) =>{
     console.log("PETICION DE VENTAS");
