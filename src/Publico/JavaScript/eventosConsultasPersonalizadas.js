@@ -373,6 +373,8 @@ btnConsultar.onclick = function(){
             return 0;
         }
     }
+    console.log(consultar);
+    window.localStorage.setItem("consulta", JSON.stringify(consultar));
 }
 
 //Añade un parrafo para los elementos que podemos selecionar
@@ -483,7 +485,7 @@ function añadirLosElementosSeleccionados(id, select, texto){
     var span = document.getElementById(id);
     var arrElementosSelecionados = opcionesSeleccionadasConsulta(select);
     if(arrElementosSelecionados.length > 1){
-        span.textContent = select.length + texto
+        span.textContent = select.selectedOptions.length + texto
     } else if(arrElementosSelecionados.length == 1) {
         span.textContent = arrElementosSelecionados[0];
     } else if (arrElementosSelecionados.length == 0){
