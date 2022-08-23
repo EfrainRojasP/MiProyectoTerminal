@@ -1,24 +1,31 @@
 function cargarCabeceras(tabla) {
+    const header = document.createElement('thead');
+    tabla.appendChild(header);
     const cabeceras = ["Fecha de la venta", "Cantidad", "Producto", "Precio",
         "Tipo Producto", "Sucursal", "Entidad", "Municipio/Alcaldia"];
-    const filaCabecera = tabla.insertRow();
+    const filaCabecera = header.appendChild(document.createElement("tr"));
     for (let i = 0; i < cabeceras.length; i++) {
-        const celdaCabecera = filaCabecera.insertCell();
-        const tituloCabecera = document.createTextNode(cabeceras[i]);
-        celdaCabecera.appendChild(tituloCabecera);
+        filaCabecera.appendChild(document.createElement("th")).
+        appendChild(document.createTextNode(cabeceras[i]));
     }
 }
 
 function cargarCuerpoTabla(tabla, tablaRes) {
+    const body = document.createElement("tbody");
+    tabla.appendChild(body);
     for (let index = 0; index < tablaRes.length; index++) {
-        const filaVenta = tabla.insertRow();
+        const filaVenta = body.appendChild(document.createElement("tr"));
+        //const filaVenta = tabla.insertRow();
         const element = tablaRes[index];
         console.log(typeof element);
         for (const key in element) {
             const value = element[key];
-            const celdaVenta = filaVenta.insertCell();
+            const celdaVenta = filaVenta.appendChild(document.createElement("td"));
             const infoVenta = document.createTextNode(value);
-            celdaVenta.appendChild(infoVenta)
+            celdaVenta.appendChild(infoVenta);
+            //const celdaVenta = filaVenta.insertCell();
+            //const infoVenta = document.createTextNode(value);
+            //celdaVenta.appendChild(infoVenta)
         }
     }
 }
