@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subir reporte</title>
-    
+    <script src="../JavaScript/validar.js"></script>
 </head>
 <body>
     <header id="infoGerente">
@@ -15,7 +15,7 @@
     <section id="contend">
         <p>La fecha limite para subir el resporte es el: <span id="fechaLimite"></span></p>
         <div id="contendForm">
-            <form action="" method="get">
+            <form action="" method="post" enctype=multipart/form-data> 
                 <label for="archivoSubir">
                     Ingrese un archivo CSV o EXCEL: <br>
                     <input required type="file" name="archivoSubir" id="archivoSubir"><br>
@@ -25,5 +25,6 @@
         </div>
     </section>
     <script src="..\JavaScript\eventosGerenteSubirReporte.js"></script>
+    <script src="../JavaScript/Peticiones/SubirArchivo.js"></script>
 </body>
 </html>
