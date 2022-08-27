@@ -2,7 +2,7 @@ const token = window.localStorage.getItem("access-token");
 
 async function fetchValidar() {
     let valido;
-    let response = await fetch('http://localhost:3200/Validar/Gerente', {
+    let response = await fetch('http://localhost:3200/Validar', {
         method: 'POST',
         headers: {
             'Authorization': 'Bearer ' + token
