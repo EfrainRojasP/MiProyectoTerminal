@@ -1,6 +1,8 @@
 node_modules
 .env
 
+/ReporteVentas
 /src/BD/DER.pdf
 /src/BD/IMGDER.PNG
 /src/BD/ModeloDer.mwb
+/src/DB/ModeloDer.mwb.back
