@@ -13,7 +13,7 @@ const redirecPOST = Router();
 /**
  * Validamos el gerente
  */
-redirecPOST.post("/Validar/Gerente", async (req, res) => {
+redirecPOST.post("/Validar", async (req, res) => {
     const { authorization } = req.headers;
     const userToken = authorization.substring(7) !== "null" ?
                     authorization.substring(7) : false;
@@ -36,7 +36,15 @@ redirecPOST.post("/GerenteRegional/index.html", (req, res) =>{
 
 redirecPOST.post("/Encargado/EncargadoSubirReporte.html", (req, res) =>{
     //res.send(__dirname)
+    console.log("HOLAAA");
     return res.sendFile(__dirname + "/Encargado/EncargadoSubirReporte.html");
 });
+
+redirecPOST.post("/Encargado/EncargadoSinReporte.html", (req, res) =>{
+    //res.send(__dirname)
+    console.log("HOLAAA");
+    return res.sendFile(__dirname + "/Encargado/EncargadoSinReporte.html");
+});
+
 
 export default redirecPOST;
