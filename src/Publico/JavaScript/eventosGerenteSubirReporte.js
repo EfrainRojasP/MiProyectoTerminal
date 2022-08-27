@@ -6,7 +6,7 @@ btnCancelar.disabled = true;
 
 var subioarchivo = document.getElementById("archivoSubir");
 //Añadimos el atributo accpet. Para que solo acepte archivos .csv y exel. Utilizamos los objetos MIME
-subioarchivo.setAttribute("accept", ".csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+subioarchivo.setAttribute("accept", "application/vnd.ms-excel, .csv");
 
 subioarchivo.onchange = function(){
     btnEnviar.disabled = false;
@@ -18,8 +18,9 @@ btnCancelar.onclick = function(){
     btnEnviar.disabled = true;
     btnCancelar.disabled = true;
 }
-
+/*
 btnEnviar.onclick = function(){
     alert("El contenido del archivo se añadio a la base de datos");
 }
+*/
 
