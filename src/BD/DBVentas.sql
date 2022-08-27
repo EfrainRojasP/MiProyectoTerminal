@@ -30,7 +30,7 @@ CREATE TABLE Sucursal(
 
 CREATE TABLE Empleado(
 	idEmpleado INT NOT NULL AUTO_INCREMENT,
-    GUIDEmpleado VARCHAR(50) NOT NULL,
+    GUIDEmpleado VARCHAR(50) NOT NULL UNIQUE,
     nombreEmpleado VARCHAR(50) NOT NULL,
     apellidoPaEmpleado VARCHAR(50) NOT NULL,
     apellidoMaEmpleado VARCHAR(50) NOT NULL,
@@ -69,7 +69,7 @@ CREATE TABLE Sucursal_Entidad_Alcaldia(
 
 CREATE TABLE Producto(
 	idProducto INT NOT NULL AUTO_INCREMENT,
-    codigoProducto VARCHAR(50) NOT NULL,
+    codigoProducto VARCHAR(50) NOT NULL UNIQUE,
     nombreProducto VARCHAR(200) NOT NULL,
     FK_idTipoProducto INT NOT NULL,
     PRIMARY KEY(idProducto),
@@ -110,7 +110,10 @@ CREATE TABLE Venta (
 INSERT INTO TipoEmpleado VALUES (NULL, "Gerente Regional");
 INSERT INTO TipoEmpleado VALUES (NULL, "Encargado");
 
-select * from empleado;
+select * from db_ventas.empleado;
+
+/*
+select * from db_ventas.empleado;
 
 select * from entidad;
 select * from sucursal;
@@ -132,7 +135,7 @@ select * from producto_sucursal ps inner join producto p on ps.FK_idProducto = p
 select ps.idProducto_Sucursal from producto_sucursal ps inner join producto p on ps.FK_idProducto = p.idProducto where p.nombreProducto = 'SALSA VALENTINA ROJA 370 ML' and FK_idSucursal = 1;
 
 select * from venta;
-
+*/
 
 
 
