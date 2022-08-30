@@ -16,3 +16,5 @@ async function fetchValidar() {
 }
 
 fetchValidar();
+
+setTimeout(fetchValidar, 3600000);
