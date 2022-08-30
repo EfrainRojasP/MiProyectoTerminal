@@ -9,6 +9,8 @@ import dotenv from "dotenv";
 import { ConexionVentasDB } from "./src/ConexionBD/ConexionVentasDB.js";
 import peticionesGerente from "./src/Modulo_Consultas/peticionesConsultas.js";
 import { subirInformacion } from "./src/Modulo_SubirInformacion/peticionesSubirInformacion.js";
+import { ConexionReporteDB } from "./src/ConexionBD/ConexionReporteBD.js";
+import solicitarReporteGente from "./src/Modulo_SolicitarReporte/peticionSolicitarReporte.js";
 
 
 dotenv.config();
@@ -28,14 +30,17 @@ expressApp.use(createExpressServer.static("./src/Publico"));
 expressApp.use("/login.html", cuentaRuter);
 expressApp.use("", redirecPOST);
 expressApp.use("/GrenteRegional", peticionesGerente);
+expressApp.use("/GerenteRegional", solicitarReporteGente)
 expressApp.use("/Encargado", subirInformacion)
 
 const main = async () => {
     const crearConexionLogin = new ConexionLoginBD();
     const crearConexionVentas = new ConexionVentasDB();
+    const crearConexionReporte = new ConexionReporteDB();
     try {
         await crearConexionLogin.iniciarConexionMYSQL();
         await crearConexionVentas.iniciarConexionMYSQL();
+        await crearConexionReporte.iniciarConexionMYSQL();
     } catch (error) {
         console.error("ERROR EN LA CONEXION A LA BD", error);
         throw error;
