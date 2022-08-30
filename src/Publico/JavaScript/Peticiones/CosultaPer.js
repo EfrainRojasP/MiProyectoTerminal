@@ -24,7 +24,8 @@ document.forms[0].addEventListener("submit", async function (e) {
     const consulta = window.localStorage.getItem("consulta");
     const resJSON = await peticionFetchConsulta(consultar);
     if (!resJSON) {
-        alert("Hubo un error, intentelo de nuevo o mas tarde");
+        alert("Nusestra base de datos indica que la consulta realizada esta vacia. Porfavor " + 
+        "vuelva a realizar la consulta pero con otros valores");
         return;
     }
     window.localStorage.setItem("tabla-consultaPer", JSON.stringify(resJSON));
