@@ -110,4 +110,44 @@ peticionesGerente.post("/SucursaresACargo/TipoProducto", async (req, res) =>{
 });
 
 
+peticionesGerente.post("/Reportes/CuantosReportes", async (req, res) =>{
+    const { authorization } = req.headers;
+    const tokenGerente = extraerToken(authorization);
+    const token = new Token();
+    const GUID = await token.extraerGUID(tokenGerente);
+    const mc = new ManagerConsultas(GUID);
+    const resConsulta = await mc.cuantosReporte();
+    if(resConsulta.error){
+        return res.status(403).json(resConsulta);
+    }
+    return res.json(resConsulta);
+});
+
+peticionesGerente.post("/Reportes/CuantosReportesEntregados", async (req, res) =>{
+    const { authorization } = req.headers;
+    const tokenGerente = extraerToken(authorization);
+    const token = new Token();
+    const GUID = await token.extraerGUID(tokenGerente);
+    const mc = new ManagerConsultas(GUID);
+    const resConsulta = await mc.cuantosReportesEntregados();
+    if(resConsulta.error){
+        return res.status(403).json(resConsulta);
+    }
+    return res.json(resConsulta);
+});
+
+peticionesGerente.post("/Reportes/TablaReportes", async (req, res) =>{
+    const { authorization } = req.headers;
+    const tokenGerente = extraerToken(authorization);
+    const token = new Token();
+    const GUID = await token.extraerGUID(tokenGerente);
+    const mc = new ManagerConsultas(GUID);
+    const resConsulta = await mc.tablaEstadoReportes();
+    if(resConsulta.error){
+        return res.status(403).json(resConsulta);
+    }
+    return res.json(resConsulta);
+});
+
+
 export default peticionesGerente;
