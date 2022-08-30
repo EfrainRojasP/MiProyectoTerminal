@@ -5,11 +5,21 @@ export class ReporteDB {
 
     mysqlDBReporte;
 
+    /**
+     * Constructor ReporteBD
+     * @param {ConexionReporteDB} mysqlDBReporte Instancia de la conexion a la BD Reportes
+     */
     constructor(mysqlDBReporte) {
         this.mysqlDBReporte = mysqlDBReporte;
     }
 
 
+    /**
+     * Insertamos un reporte
+     * @param {Reporte} reporte 
+     * @returns Devulve TRUE, si la insercion todo salio bien
+     * @returns Devulve FALSE, si algo salio mal
+     */
     insertarReporte(reporte) {
         return new Promise((resolve, reject) => {
             const stm = "CALL InsertarReporte(?,?,?,?,?)";
@@ -23,6 +33,12 @@ export class ReporteDB {
         });
     }
 
+    /**
+     * Insertamos un vinculamos el reporte con el encargado
+     * @param {Reporte} reporte 
+     * @returns Devulve TRUE, si la insercion todo salio bien
+     * @returns Devulve FALSE, si algo salio mal
+     */
     insertarReporteEncargado(arrReporteEncargado) {
         console.log(arrReporteEncargado);
         return new Promise((resolve, reject) => {
@@ -38,6 +54,12 @@ export class ReporteDB {
         });
     }
 
+    /**
+     * Obtenemos la informacion del reporte
+     * @param {GUID} GUID GUID del Gerente Regional 
+     * @returns Devulve un objeto con la informacion del reporte
+     * @returns Devulve FALSE, si algo salio mal 
+     */
     informacionReporte(GUID) {
         return new Promise((resolve, reject) => {
             const stm = "CALL InformacionReporte (?)";
@@ -59,6 +81,12 @@ export class ReporteDB {
         });
     }
 
+    /**
+     * Obtenemos cuantos reportes solicitamos
+     * @param {GUID} GUID GUID del Gerente Regional 
+     * @returns Devulve un objeto con los reportes que solicitamos
+     * @returns Devulve FALSE, si algo salio mal 
+     */
     cuantosReporte(GUID) {
         return new Promise((resolve, reject) => {
             const stm = "SELECT ObtenerCantidadReportes(?)";
@@ -78,6 +106,12 @@ export class ReporteDB {
         });
     }
 
+    /**
+     * Obtenemos cuantos reportes se han entregado
+     * @param {GUID} GUID GUID del Gerente Regional 
+     * @returns Devulve un objeto con los reportes entregados
+     * @returns Devulve FALSE, si algo salio mal  
+     */
     cuantosReportesEntregados(GUID) {
         return new Promise((resolve, reject) => {
             const stm = "SELECT ObtenerCantidadReportesEntregados(?)";
@@ -97,6 +131,12 @@ export class ReporteDB {
         });
     }
 
+    /**
+     * Obtenemos el estado de los reportes, es decir, si ya o no lo han entregado
+     * @param {GUID} GUID GUID del Gerente Regional 
+     * @returns Devulve un objeto con la informacion de los reportes
+     * @returns Devulve FALSE, si algo salio mal 
+     */
     consultarEstadoResportes(GUID) {
         return new Promise((resolve, reject) => {
             const stm = "CALL InformacionReportesEntregados(?)";
