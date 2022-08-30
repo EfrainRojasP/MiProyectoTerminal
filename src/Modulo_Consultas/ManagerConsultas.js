@@ -129,6 +129,12 @@ export class ManagerConsultas {
         return [stm, arrParametrosConsulta];
     }
 
+    /**
+     * Consutamos cuantos reportes hay en la BD, depediendo del Gerente regional
+     * @returns Un objeto con la propiedad "error", en caso de que haya un error.
+     * O un objeto con las propiedades "mensaje" y "redirec", en caso de que no haya nigun reporte.
+     * O un objeto con la cantidad de reportes
+     */
     async cuantosReporte(){
         const conexionDBReporte = new ConexionReporteDB();
         const consultarReporte= new ReporteDB(conexionDBReporte.getConexion());
@@ -147,6 +153,11 @@ export class ManagerConsultas {
         return respuesta;
     }
 
+    /**
+     * Consulta cuantos reportes han sido entragados
+     * @returns Devulve un objeto con la propiedad "error", en caso de que haya un error.
+     * O un objeto con la cantidad de reportes entregados
+     */
     async cuantosReportesEntregados(){
         const conexionDBReporte = new ConexionReporteDB();
         const consultarReporte= new ReporteDB(conexionDBReporte.getConexion());
@@ -156,11 +167,15 @@ export class ManagerConsultas {
                 error: "Tranquilo no es tu culpa, tubimos un error. Vulvelo a intentar mas tarde"
             }
         }
-        console.log("RES", respuesta);
         return respuesta;
     }
 
 
+    /**
+     * Consulta la BD de reportes para saber el estado de los reportes
+     * @returns Devulve un objeto con la propiedad "error", en caso de que haya un error.
+     * O un objeto con la tabla de reportes
+     */
     async tablaEstadoReportes(){
         const conexionDBReporte = new ConexionReporteDB();
         const consultarReporte= new ReporteDB(conexionDBReporte.getConexion());
