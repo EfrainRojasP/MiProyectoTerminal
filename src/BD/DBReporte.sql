@@ -27,8 +27,7 @@ CREATE TABLE Reporte(
 	idReporte INT NOT NULL AUTO_INCREMENT UNIQUE,
     GUIDReporte VARCHAR(50) NOT NULL UNIQUE,
     decripcionReporte VARCHAR(200) NOT NULL,
-    fechaInicio DATE NOT NULL,
-    fechaFinal DATE NOT NULL,
+    fechaLimite DATE NOT NULL,
     PRIMARY KEY(idReporte)
 );
 
@@ -43,6 +42,15 @@ CREATE TABLE Empleado(
     FOREIGN KEY (FK_idTipoEmpleado) REFERENCES TipoEmpleado(idTipoEmpleado)
 );
 
+CREATE TABLE EmpleadoSucursal(
+	idEmpleadoSucursal INT NOT NULL AUTO_INCREMENT,
+    FK_idEmpleado INT NOT NULL,
+    FK_idSucursal INT NOT NULL,
+    PRIMARY KEY(idEmpleadoSucursal),
+    FOREIGN KEY (FK_idEmpleado) REFERENCES Empleado(idEmpleado),
+    FOREIGN KEY (FK_idSucursal) REFERENCES Sucursal(idSucursal)
+);
+
 CREATE TABLE Empleado_ReporteSolicitud(
 	idERS INT NOT NULL AUTO_INCREMENT UNIQUE,
     FK_idEmpleadoGerente INT NOT NULL,
@@ -53,15 +61,13 @@ CREATE TABLE Empleado_ReporteSolicitud(
 	FOREIGN KEY(FK_idReporte) REFERENCES Reporte(idReporte)
 );
 
-CREATE TABLE Empleado_Reporte_Estado_Sucursal(
+CREATE TABLE Empleado_Reporte_Estado(
 	idERES INT NOT NULL AUTO_INCREMENT UNIQUE,
-    FK_idEmpleadoEncargado INT NOT NULL,
-    FK_idSucursal INT NOT NULL,
+    FK_idEmpleadoSucursal INT NOT NULL,
     FK_idEstadoReporte INT NOT NULL,
     FK_idReporte INT NOT NULL,
     PRIMARY KEY(idERES),
-    FOREIGN KEY(FK_idEmpleadoEncargado) REFERENCES Empleado(idEmpleado),
-    FOREIGN KEY(FK_idSucursal) REFERENCES Sucursal(idSucursal),
+    FOREIGN KEY(FK_idEmpleadoSucursal) REFERENCES EmpleadoSucursal(idEmpleadoSucursal),
     FOREIGN KEY(FK_idEstadoReporte) REFERENCES EstadoReporte(idEstadoReporte),
     FOREIGN KEY(FK_idReporte) REFERENCES Reporte(idReporte)
 );
@@ -74,6 +80,16 @@ INSERT INTO TipoEmpleado VALUES (NULL, "Encargado");
 INSERT INTO EstadoReporte VALUES (NULL, "Entregado");
 INSERT INTO EstadoReporte VALUES (NULL, "No entregado");
 INSERT INTO EstadoReporte VALUES (999, "No aplica");
+
+INSERT INTO db_reportes.empleado SELECT * FROM db_ventas.empleado;
+INSERT INTO db_reportes.sucursal SELECT * FROM db_ventas.sucursal;
+INSERT INTO db_reportes.EmpleadoSucursal SELECT * FROM db_ventas.empleadosucursal;
+
+#SELECT * from db_reportes.sucursal;
+
+#SELECT *  from db_reportes.EmpleadoSucursal;
+
+
 
 #INSERT INTO sucursal SELECT * FROM db_ventas.sucursal;
 
