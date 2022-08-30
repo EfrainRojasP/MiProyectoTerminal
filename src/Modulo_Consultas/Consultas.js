@@ -39,7 +39,7 @@ export class ConsultarVentas {
     }
 
     /**
-     * Metodo para saber cuales sucursales tiene a cargo el gerente regional
+     * Metodo para saber cuales sucursales tiene a cargo el gerente regional o el encargado
      * @param {String} GUID GUID del gerente regional
      * @returns Las tiendas a cargao que tiene el Genrente Regional
      */
@@ -63,8 +63,31 @@ export class ConsultarVentas {
     }
 
     /**
+     * Consulta las sucursales a cargo que tiene un empleado
+     * @returns Devulve el id de las sucursales
+     */
+    consultarIdSucursalesAcargo(GUID) {
+        return new Promise((resolve, reject) => {
+            const stm = "CALL idSucursalesAcargo(?)";
+            const query = this.conexionMYSQL.query(stm, GUID, function (error, results, fields) {
+                if (error) {
+                    return reject(error.stack)
+                }
+                //Si el email no esta en la BD se envia flase
+                if (results[0] === undefined) {
+                    return resolve(false);
+                }
+                //console.log(results);
+                const result = convertirRespuestaAObjeto(results[0]);
+                //console.log(results[0]["idSucursal"]);
+                return resolve(result);
+            });
+        });
+    }
+
+    /**
      * Metodo para saber en que municipio o alcadia estan las sucursales que tiene a cargo el
-     * gerente regional
+     * gerente regional o el encargardo
      * @param {String} GUID GUID del gerente regional
      * @returns Devulve el municipio o alcaldia de las sucursales que tiene a cargo al Gerente Regional
      */
@@ -89,7 +112,7 @@ export class ConsultarVentas {
 
     /**
      * Metodo para saber en que entidad estan las sucursales que tiene a cargo el
-     * gerente regional
+     * gerente regional o el encargardo
      * @param {String} GUID GUID del gerente regional
      * @returns Devulve las entidades de las sucursales que tiene a cargo al Gerente Regional
      */
@@ -183,7 +206,7 @@ export class ConsultarVentas {
                 }
                 //console.log(results);
                 let result = convertirRespuestaAObjeto(results);
-                result = refectorizarFecha(result);
+                result = refectorizarFecha(result, 1);
                 console.log(result);
                 return resolve(result);
             });
