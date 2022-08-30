@@ -1,3 +1,5 @@
+import { nanoid } from "nanoid";
+
 /**
  * Convierte la respuesta a un objeto, es decir; quita el RowPackage
  * @param {result} result Resultado de la base de datos
@@ -86,13 +88,46 @@ export function consulta(arrayParametros, consulta, columna, arrayID) {
 /**
  * Refactoriza la fecha de formato UTC a formato YYYY-MM-DD
  * @param {result} result El resultado de la consulta a la base de datos
+ * @param {int} bandera El tipo de refactorizacion que haremos
  * @returns Devulve la fecha refactorizada en formato YYYY-MM-DD
  */
-export function refectorizarFecha(result) {
-    for(let i = 0; i < result.length; ++i){
-        const fecha = result[i]["fechaVenta"];
-        result[i]["fechaVenta"] = fecha.substring(0, 10);
-        
+export function refectorizarFecha(result, bandera) {
+    if(bandera === 1){
+        for(let i = 0; i < result.length; ++i){
+            const fecha = result[i]["fechaVenta"];
+            result[i]["fechaVenta"] = fecha.substring(0, 10);
+            
+        }
+    } else if(bandera === 2){
+        for(let i = 0; i < result.length; ++i){
+            const fechaSolicitud = result[i]["fechaSolicitud"];
+            const fechaLimite = result[i]["fechaLimite"];
+            result[i]["fechaSolicitud"] = fechaSolicitud.substring(0, 10);
+            result[i]["fechaLimite"] = fechaLimite.substring(0, 10);
+        }
     }
     return result;
+}
+
+
+
+/**
+ * Crea un conjunto da values alfanumericos
+ * @param {int} tamGUID Tamaño de la cadena 
+ * @returns Devulve un conjunto de valures alfanumericos, dependiendo del tamaño de la cadena
+ */
+export function crearGUID(tamGUID) {
+    return nanoid(tamGUID);
+}
+
+/**
+ * Crea la fecha del dia de hoy en el formato YYYY-MM-DD
+ * @returns Devulve la fecha en formato YYYY-MM-DD
+ */
+export function fechaAlDia(){
+    const date = new Date();
+    const dia = ("0" + date.getDate()).slice(-2);
+    const mes =  ("0" + (date.getMonth() + 1)).slice(-2);
+    const anio = date.getFullYear();
+    return anio + "-" + mes + "-" + dia;
 }
