@@ -1,5 +1,7 @@
 import { consulta, consultaFecha, consultaPorCantidad, crearHasMap } from "../Ayudas/Ayudas.js";
+import { ConexionReporteDB } from "../ConexionBD/ConexionReporteBD.js";
 import { ConexionVentasDB } from "../ConexionBD/ConexionVentasDB.js";
+import { ReporteDB } from "../Modulo_SolicitarReporte/ReporteBD.js";
 import { ConsultarVentas } from "./Consultas.js";
 
 export class ManagerConsultas {
@@ -126,5 +128,50 @@ export class ManagerConsultas {
         }
         return [stm, arrParametrosConsulta];
     }
+
+    async cuantosReporte(){
+        const conexionDBReporte = new ConexionReporteDB();
+        const consultarReporte= new ReporteDB(conexionDBReporte.getConexion());
+        const respuesta = await consultarReporte.cuantosReporte(this.GUID);
+        if(!respuesta){
+            return{
+                error: "Tranquilo no es tu culpa, tubimos un error. Vulvelo a intentar mas tarde"
+            }
+        }
+        if(respuesta[0] <= 0){
+            return {
+                mensaje: "No has pedido ningun reporte",
+                redirec: "solicitarReporte.html"
+            }
+        }
+        return respuesta;
+    }
+
+    async cuantosReportesEntregados(){
+        const conexionDBReporte = new ConexionReporteDB();
+        const consultarReporte= new ReporteDB(conexionDBReporte.getConexion());
+        const respuesta = await consultarReporte.cuantosReportesEntregados(this.GUID);
+        if(!respuesta){
+            return{
+                error: "Tranquilo no es tu culpa, tubimos un error. Vulvelo a intentar mas tarde"
+            }
+        }
+        console.log("RES", respuesta);
+        return respuesta;
+    }
+
+
+    async tablaEstadoReportes(){
+        const conexionDBReporte = new ConexionReporteDB();
+        const consultarReporte= new ReporteDB(conexionDBReporte.getConexion());
+        const respuesta = await consultarReporte.consultarEstadoResportes(this.GUID);
+        if(!respuesta){
+            return{
+                error: "Tranquilo no es tu culpa, tubimos un error. Vulvelo a intentar mas tarde"
+            }
+        }
+        return respuesta;
+    }
+
 
 }
