@@ -1,33 +1,26 @@
-var fechaDeEntrega = document.getElementById("fechaEntrega");
-var cualSucursal = document.getElementById("seleccionSucursal");
-var btnSolicitar = document.getElementById("btnSolicitar");
+const fechaDeEntrega = document.getElementById("fechaEntrega");
+const btnSolicitar = document.getElementById("btnSolicitar");
+const descRpot = document.getElementById("descripcionRpo");
 
-cualSucursal.setAttribute("required", "");
+descRpot.getAttribute("required", "");
 fechaDeEntrega.setAttribute("required", "");
+
+
 
 class SolicitarReporte{
     fechaDeEntrega;
-    cualSucursal;
-    constructor(fechaDeEntrega, cualSucursal) {
+    descripcion;
+    constructor(fechaDeEntrega, descripcion) {
         this.fechaDeEntrega = fechaDeEntrega;
-        this.cualSucursal = cualSucursal;
+        this.descripcion = descripcion;
     }
     objetoJSON(objeto){
         return JSON.stringify(objeto);
     }
 }
 
-function opcionesSeleccionadas(select){
-    var arrOpciones = [];
-    for(var option of select.options){
-        if(option.selected){
-            arrOpciones.push(option.text);
-        }
-    }
-    return arrOpciones;
-}
 
-btnSolicitar.onclick = function(){
+/*btnSolicitar.onclick = function(){
     var arrOpciones = opcionesSeleccionadas(cualSucursal);
     var mensaje;
     if(arrOpciones.length != 0 && fechaDeEntrega.length != 0){
@@ -38,5 +31,5 @@ btnSolicitar.onclick = function(){
         alert(mensaje);
     }
     
-};
+};*/
 
