@@ -22,7 +22,7 @@ SELECT * FROM Informacion_Reporte;
 DROP VIEW IF EXISTS Informacion_Reporte_Entrega;
 /*Vista que tiene la informacoion del reporte, quien si y quien no ha entregado*/
 CREATE VIEW Informacion_Reporte_Entrega AS SELECT res1.idEmpleado, res1.GUIDEmpleado, ir.idReporte, 
-	ir.GUIDReporte, res1.nombreSucursal, res1.direccionSucursal, er.idEstadoReporte ,er.estadoReporte  
+	ir.GUIDReporte, ir.fechaLimite,res1.nombreSucursal, res1.direccionSucursal, er.idEstadoReporte ,er.estadoReporte, ere.ideres  
 	FROM Informacion_Reporte ir
 	INNER JOIN Empleado_Reporte_Estado ere ON ir.idReporte = ere.FK_idReporte
     INNER JOIN EstadoReporte er ON er.idEstadoReporte = ere.FK_idEstadoReporte
@@ -31,7 +31,7 @@ CREATE VIEW Informacion_Reporte_Entrega AS SELECT res1.idEmpleado, res1.GUIDEmpl
 		INNER JOIN sucursal s ON s.idSucursal = es.FK_idSucursal) res1
 	ON res1.idEmpleadoSucursal = ere.FK_idEmpleadoSucursal;
 
-SELECT * FROM Informacion_Reporte_Entrega;
+SELECT * FROM Informacion_Reporte_Entrega WHERE GUIDEmpleado = 'gUQXs0uj9HWkSHNzkiEc' ORDER BY ideres DESC LIMIT 1;
 
 ####### FUNCIONES ###########
 DROP FUNCTION IF EXISTS ObtenerIdUsuaio;
@@ -51,7 +51,7 @@ END
 //
 DELIMITER ;
 
-#SELECT ObtenerIdUsuaio ("57jBtKytKAFzAZ7kORaV");
+SELECT ObtenerIdUsuaio ("57jBtKytKAFzAZ7kORaV");
 
 DROP FUNCTION IF EXISTS ObtenerIdReporte;
 DELIMITER //
@@ -69,6 +69,8 @@ BEGIN
 END
 //
 DELIMITER ;
+
+#SELECT ObtenerIdReporte("57jBtKytKAFzAZ7kORaV");
 
 DROP FUNCTION IF EXISTS ObtenerElUltimoIdReporte;
 /*Obtiene el id del utltmo reporte que solicito el gerente*/
@@ -89,7 +91,7 @@ END
 //
 DELIMITER ;
 
-#SELECT ObtenerElUltimoIdReporte ("YELhqLlQ3OJEEO-qlo0w");
+SELECT ObtenerElUltimoIdReporte ("57jBtKytKAFzAZ7kORaV");
 
 DROP FUNCTION IF EXISTS ObtenerCantidadReportes;
 /*Nos dice cuantos reporte hay*/
@@ -126,6 +128,62 @@ END
 DELIMITER ;
 
 #SELECT ObtenerCantidadReportesEntregados("YELhqLlQ3OJEEO-qlo0w");
+
+DROP FUNCTION IF EXISTS ObtenerIdEmpRepSuc;
+/*Obtenemos el id del la tabla empleado_reporte_sucursal, la cual nos indica cuales usuarios han y no han entragado el reporte*/
+DELIMITER //
+CREATE FUNCTION ObtenerIdEmpRepSuc(GUIDEncargado VARCHAR(50)) RETURNS INT
+READS SQL DATA
+NOT DETERMINISTIC
+	BEGIN
+		DECLARE idERS INT UNSIGNED;
+        SET idERS = (SELECT ideres FROM Informacion_Reporte_Entrega WHERE GUIDEmpleado = GUIDEncargado ORDER BY idReporte DESC LIMIT 1);
+		 IF idERS IS NULL 
+			 THEN SET idERS = 0;
+		 END IF;
+        RETURN idERS;
+    END
+//
+DELIMITER ;
+	
+SELECT ObtenerIdEmpRepSuc("gUQXs0uj9HWkSHNzkiEc");
+
+DROP FUNCTION IF EXISTS ObtenerEstadoReporteEncargado;
+DELIMITER //
+/*Nos da el id del estado del reporte, esto lo hacemos para saber el (un) encargado ya subio el reporte*/
+CREATE FUNCTION ObtenerEstadoReporteEncargado(GUIDEncargado VARCHAR(50)) RETURNS INT
+READS SQL DATA
+NOT DETERMINISTIC
+	BEGIN
+		DECLARE edoRepor INT UNSIGNED;
+        SET edoRepor = (SELECT idEstadoReporte FROM Informacion_Reporte_Entrega WHERE GUIDEmpleado = GUIDEncargado ORDER BY ideres DESC LIMIT 1);
+		IF edoRepor IS NULL 
+			 THEN SET edoRepor = 0;
+		 END IF;
+        RETURN edoRepor;
+    END
+//
+DELIMITER ;
+
+SELECT ObtenerEstadoReporteEncargado('gUQXs0uj9HWkSHNzkiEc');
+
+DROP FUNCTION IF EXISTS FechaLimiteReporteEncargado;
+DELIMITER //
+CREATE FUNCTION FechaLimiteReporteEncargado (GUID VARCHAR(50)) RETURNS VARCHAR(50)
+READS SQL DATA
+NOT DETERMINISTIC
+	BEGIN
+		DECLARE fechaLimite VARCHAR(50);
+        SET fechaLimite = (SELECT fechaLimite FROM Informacion_Reporte_Entrega WHERE GUIDEmpleado = "gUQXs0uj9HWkSHNzkiEc" ORDER BY ideres DESC LIMIT 1);
+        IF fechaLimite IS NULL 
+			 THEN SET fechaLimite = 0;
+		 END IF;
+        RETURN fechaLimite;
+    END
+//
+DELIMITER ;
+
+SELECT FechaLimiteReporteEncargado ("gUQXs0uj9HWkSHNzkiEc");
 
 ##################################################### PROCEDIMIENTOS #################################################################################
 DROP PROCEDURE IF EXISTS InsertarReporte;
@@ -173,6 +231,8 @@ END;
 // 
 DELIMITER ;
 
+#CALL InsertarReporteEncargado('57jBtKytKAFzAZ7kORaV', 'AVY0UYEcVROaafSvJvWU');
+
 DROP PROCEDURE IF EXISTS InformacionReporte;
 DELIMITER //
 /*Proporciona la informacion del reporte*/
@@ -185,7 +245,7 @@ END
 //
 DELIMITER ;
 
-#CALL InformacionReporte("YELhqLlQ3OJEEO-qlo0w");
+CALL InformacionReporte("gUQXs0uj9HWkSHNzkiEc");
 
 DROP PROCEDURE IF EXISTS InformacionReportesEntregados;
 DELIMITER //
@@ -201,7 +261,32 @@ DELIMITER ;
 
 #CALL InformacionReportesEntregados("YELhqLlQ3OJEEO-qlo0w");
 
-#CALL InsertarReporteEncargado('57jBtKytKAFzAZ7kORaV', 'AVY0UYEcVROaafSvJvWU');
+DROP PROCEDURE IF EXISTS ActualizarEntrega;
+/*Procedimiento que actualiza la entrega, de no entregado a entregado*/
+/*DELIMITER //
+CREATE PROCEDURE ActualizarEntrega(GUIDEncargado VARCHAR(50))
+BEGIN
+	DECLARE idERSG INT UNSIGNED;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION, SQLWARNING
+		BEGIN
+			SHOW ERRORS limit 1;
+		-- ERROR, WARNING
+		ROLLBACK;
+	END;
+    START TRANSACTION;
+		SET idERSG = (SELECT  ObtenerIdEmpRepSuc(GUIDEncargado));
+		UPDATE Empleado_Reporte_Estado SET FK_idEstadoReporte = 1 WHERE idERES = idERSG;
+        SHOW Mes
+	-- COMMIT;
+END
+//
+DELIMITER ;
+#JmMdSx2AMGuIfge0Xbz4
+CALL ActualizarEntrega("JmMdSx2AMGuI");
+
+#UPDATE Empleado_Reporte_Estado SET FK_idEstadoReporte = 2 WHERE idERES = 4;*/
+
+SELECT * FROM empleado_reporte_estado;
 
 select * from reporte;
 SELECT * from empleado_reportesolicitud;

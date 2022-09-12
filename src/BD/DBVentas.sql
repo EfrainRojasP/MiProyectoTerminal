@@ -112,6 +112,8 @@ INSERT INTO TipoEmpleado VALUES (NULL, "Encargado");
 
 select * from db_ventas.empleado;
 
+select * from venta;
+
 /*
 select * from db_ventas.empleado;
 
