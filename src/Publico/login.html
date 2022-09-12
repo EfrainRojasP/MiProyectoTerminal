@@ -1,21 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <script src="JavaScript\eventosLogin.js"></script>
-    
+    <link href="./Estilos/login.css" rel="stylesheet" type="text/css">
 </head>
+
 <body>
-    <section id="contendLogin">
-        <form action="" method="post" id="formularioLogin">
-            <input required type="email" name="nombreUsario" id="nombreUsario" placeholder="Usuario o Email"><br>
-            <input required type="password" name="passUsuario" id="passUsuario" placeholder="Contraseña"><br>
-            <button type="submit" onclick="entrar()">Entrar</button>
-        </form>
-    </section>
+    <div id="contend">
+        <div id="info">
+            <div id="logo">
+                <img id="logoUAM" src="./Imagenes/logo-uam.png" alt="Logo ">
+            </div>
+            <h2 id="tituloProyecto">
+                Sistema para la recopilación y análisis automático de información en una
+                cadena de tiendas de conveniencia.
+            </h2>
+        </div>
+        <section id="contendLogin">
+            <form action="" method="post" id="formularioLogin">
+                <div id="userEmail">
+                    <input required type="email" name="nombreUsario" id="nombreUsario" placeholder="Usuario o Email">
+                </div>
+                <div id="userPass">
+                    <input required type="password" name="passUsuario" id="passUsuario" placeholder="Contraseña">
+                </div>
+                <div id="boton">
+                    <button type="submit" onclick="entrar()" id="entrar">Entrar</button>
+                </div>
+            </form>
+        </section>
+    </div>
     <script src="JavaScript/enviarDatosLogin.js"></script>
 </body>
+
 </html>
