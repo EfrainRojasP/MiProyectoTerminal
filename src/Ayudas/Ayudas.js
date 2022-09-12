@@ -105,6 +105,9 @@ export function refectorizarFecha(result, bandera) {
             result[i]["fechaSolicitud"] = fechaSolicitud.substring(0, 10);
             result[i]["fechaLimite"] = fechaLimite.substring(0, 10);
         }
+    } else if(bandera === 3){
+        const fecha = result;
+        result = fecha.substring(0, 10);
     }
     return result;
 }
@@ -130,4 +133,44 @@ export function fechaAlDia(){
     const mes =  ("0" + (date.getMonth() + 1)).slice(-2);
     const anio = date.getFullYear();
     return anio + "-" + mes + "-" + dia;
+}
+
+/**
+ * Convierte la fecha en formato YYYY/MM/DD a formato YYYY-MM-DD
+ * @param {String} fecha Fecha
+ * @returns Devulve la fehca en formato YYYY/MM/DD
+ */
+export function convertirFecha(fecha){
+    if(fecha.search("/") != -1){
+        const array = fecha.split("/");
+        const dia = array[0];
+        const mes = array[1];
+        const anio = array[2];
+        fecha = anio + "-" + mes + "-" + dia;
+        return fecha;
+   }
+   return fecha;
+}
+
+/**
+ * Convierte un arreglo de numeros enteros en string a numeros en int
+ * @param {Array} arr 
+ * @returns Devulve un arreglo de enteros
+ */
+export function arrDeStringAInt(arr){
+    //const arr = [];
+    return arr.map((val) =>{
+       return parseInt(val);
+    });
+}
+
+/**
+ * Convierte un arreglo de numeros float en string a numeros en float
+ * @param {Array} arr 
+ * @returns Devulve un arreglo de floats
+ */
+export function arrDeStringAFloat(arr) {
+    return arr.map((val) =>{
+        return parseFloat(val);
+    });
 }
