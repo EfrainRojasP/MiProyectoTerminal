@@ -1,0 +1,59 @@
+import { Correo } from "./Correo.js";
+import {google} from "googleapis";
+import nodemailer from "nodemailer";
+import dotenv from "dotenv";
+import { extraerToken } from "../Ayudas/Ayudas.js";
+import { Token } from "../Modulo_AutentificacionAutorizacion/Token.js";
+
+dotenv.config();
+
+export class ManagerConfirmacionPorCorreo{
+    correo;
+    oAuth2;
+    correoUsuario;
+
+    constructor(correoUsuario) {
+        this.correoUsuario = correoUsuario;
+        this.correo = new Correo();
+        this.token = new Token();
+    }
+
+    generarOAuth2(){
+        const oAuth2 = new google.auth.OAuth2(process.env.ID_CLIENTE, process.env.SECRETO_CLIENTE, process.env.REDIRECT_URL);
+
+        oAuth2.setCredentials({refresh_token: process.env.REFRESH_TOKEN});
+
+        return oAuth2;
+    }
+
+    async enviarCorreo(authorization){
+        try {
+            const tokenEncargado = extraerToken(authorization);
+            this.correoUsuario = await this.token.extraerEmail(tokenEncargado);
+            console.log("COREERO " + this.correo);
+            this.oAuth2 = this.generarOAuth2();
+            const accesToken = await this.oAuth2.getAccessToken();
+            const tranporter = nodemailer.createTransport({
+                service: "gmail",
+                auth: {
+                    type: "OAuth2",
+                    user: process.env.EMAIL_USER,
+                    clientId: process.env.ID_CLIENTE,
+                    clientSecret: process.env.SECRETO_CLIENTE,
+                    refreshToken: process.env.REFRESH_TOKEN,
+                    accessToken: accesToken
+                }
+            });
+            this.correo.setFrom("Sistema de verificacion " + "<" + process.env.EMAIL_USER + ">");
+            this.correo.setTo(this.correoUsuario);
+            this.correo.setSubject("Entraga de reporte");
+            this.correo.setText("Ha realizado con exito la entraga del reporte");
+            const result = await tranporter.sendMail(this.correo);
+            return true;
+        } catch (error) {
+            console.error("ERROR AL ENVIAR CORREO " + error);
+            return false;
+        }
+    }
+
+}
