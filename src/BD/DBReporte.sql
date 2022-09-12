@@ -85,6 +85,14 @@ INSERT INTO db_reportes.empleado SELECT * FROM db_ventas.empleado;
 INSERT INTO db_reportes.sucursal SELECT * FROM db_ventas.sucursal;
 INSERT INTO db_reportes.EmpleadoSucursal SELECT * FROM db_ventas.empleadosucursal;
 
+SELECT *  FROM db_ventas.empleado;
+SELECT * FROM db_reportes.sucursal;
+SELECT * FROM db_reportes.EmpleadoSucursal;
+SELECT * FROM db_reportes.Empleado_ReporteSolicitud;
+
+SELECT * FROM Empleado_Reporte_Estado;
+UPDATE Empleado_Reporte_Estado SET FK_idEstadoReporte = 2 WHERE idERES = 1;
+
 #SELECT * from db_reportes.sucursal;
 
 #SELECT *  from db_reportes.EmpleadoSucursal;
