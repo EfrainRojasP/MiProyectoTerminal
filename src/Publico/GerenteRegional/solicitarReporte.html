@@ -8,23 +8,32 @@
     <title>Solicitar reporte</title>
     <script src="../JavaScript/validar.js"></script>
     <script src="../JavaScript/Peticiones/VerificarReporte.js"></script>
+    <link rel="stylesheet" href="../Estilos/menu.css">
+    <link rel="stylesheet" href="../Estilos/solReporte.css">
 </head>
 
 <body>
-    <nav>
-        <a href="ventas.html">Consutar ventas</a>|
-        <a href="consultaVentasPersonalizadas.html">Consulta de ventas personalizadas</a>|
-        <a href="verSucursales.html">Ver sucursales</a>|
-        <a href="entrgas.html">Ver entregas</a>|
-        <a href="solicitarReporte.html">Solicitar reporte</a>
-    </nav>
+    <section class="menuBar">
+        <nav>
+            <a href="ventas.html">Consutar ventas</a>
+            <a href="consultaVentasPersonalizadas.html">Consulta de ventas personalizadas</a>
+            <a href="verSucursales.html">Ver sucursales</a>
+            <a href="entrgas.html">Ver entregas</a>
+            <a href="solicitarReporte.html">Solicitar reporte</a>
+        </nav>
+    </section>
     <section id="programarEntrega">
         <form action="./reporteSolicitado.html">
             <label for="fechaEntrega">
                 Selecciona una fecha de entrega <input type="date" name="fechaEntrega" id="fechaEntrega"><br>
             </label>
             <label for="descripcionRpo">Descripcion del resporte: </label>
-            <input required type="text" name="descripcionRpo" id="descripcionRpo" maxlength="255" minlength="10">
+            <select required name="descripcionRpo" id="descripcionRpo">
+                <option value=""></option>
+                <option value="1">Reporte del mes</option>
+                <option value="2">Reporte de la semana</option>
+                <option value="3">Reporte del dia</option>
+            </select>
             <button type="submit" id="btnSolicitar">Solicitar</button>
         </form>
     </section>

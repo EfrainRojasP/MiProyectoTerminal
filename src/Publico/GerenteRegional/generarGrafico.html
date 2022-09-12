@@ -1,41 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="../JavaScript/validar.js"></script>
+    <link rel="stylesheet" href="../Estilos/menu.css">
+    <link rel="stylesheet" href="../Estilos/tabla.css">
+    <link rel="stylesheet" href="../Estilos/consulPerRes.css">
 </head>
+
 <body>
-    <nav>
-        <a href="ventas.html">Consutar ventas</a>|
-        <a href="consultaVentasPersonalizadas.html">Consulta de ventas personalizadas</a>|
-        <a href="verSucursales.html">Ver sucursales</a>|
-        <a href="entrgas.html">Ver entregas</a>|
-        <a href="solicitarReporte.html">Solicitar reporte</a>|
-    </nav>
+    <section class="menuBar">
+        <nav>
+            <a href="ventas.html">Consutar ventas</a>
+            <a href="consultaVentasPersonalizadas.html">Consulta de ventas personalizadas</a>
+            <a href="verSucursales.html">Ver sucursales</a>
+            <a href="entrgas.html">Ver entregas</a>
+            <a href="solicitarReporte.html">Solicitar reporte</a>
+        </nav>
+    </section>
     <section id="realizoConsulta">
         <p>Consulta de ventas por:</p>
     </section>
     <section id="tablaConsulta">
-        <table id="tablaResultado"></table>
+        <table id="tablaResultado" class="styled-table"></table>
     </section>
     <section id="grafico">
-        <form action="">
+        <form action="./Grafico.html">
             <label for="generarGrafico">
                 <input type="checkbox" name="generarGrafico" id="generarGrafico"> Generar grafico
             </label>
             <label for="tipoGrafico">
                 <select name="tipoGrafico" id="tipoGrafico">
-                    <option value="graficoLinea">Linea</option>
-                    <option value="graficoBara">Barra</option>
+                    <option value="line">Linea</option>
+                    <option value="bar">Barra</option>
                 </select>
             </label>
+            <br>
+            <select required name="ejeY" id="ejeY" class="eje">
+                <option value=""></option>
+                <option value="Cantidad">Cantidad</option>
+                <option value="Precio">Precio</option>
+            </select>
+            <label for=""> Vs </label>
+            <select required name="ejeX" id="ejeX" class="eje">
+                <option value=""></option>
+                <option value="Cantidad">Cantidad</option>
+                <option value="Precio">Precio</option>
+                <option value="Fecha_de_la_venta">Fecha de la venta</option>
+                <option value="Producto">Producto</option>
+                <option value="Tipo_Producto">Tipo Producto</option>
+                <option value="Sucursal">Sucursal</option>
+                <option value="Entidad">Entidad</option>
+                <option value="Municipio_Alcaldia">Municipio/Alcaldia</option>
+            </select>
             <button type="submit" id="btnGenerar">Generar</button>
         </form>
     </section>
     <script src="../JavaScript/eventosGenerarGrafico.js"></script>
     <script src="../JavaScript/Cargadores/CargarTablaConsultaPersonalizada.js"></script>
+    <script src="../JavaScript/Peticiones/GenerarGrafico.js"></script>
 </body>
+
 </html>

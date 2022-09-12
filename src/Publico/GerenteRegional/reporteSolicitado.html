@@ -5,16 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reporte solicitado</title>
-    <script src="../JavaScript/validar.js"></script>
-    <script src="../JavaScript/Cargadores/CargarInfoReporte.js"></script>
+    <script  src="../JavaScript/validar.js"></script>
+    <script defer src="../JavaScript/Cargadores/CargarInfoReporte.js"></script>
+    <link rel="stylesheet" href="../Estilos/menu.css">
+    <link rel="stylesheet" href="../Estilos/reposol.css">
 </head>
 <body>
-    <nav>
-        <a href="ventas.html">Consutar ventas</a>|
-        <a href="consultaVentasPersonalizadas.html">Consulta de ventas personalizadas</a>|
-        <a href="verSucursales.html">Ver sucursales</a>|
-        <a href="entrgas.html">Ver entregas</a>
-    </nav>
+    <section class="menuBar">
+        <nav>
+            <a href="ventas.html">Consutar ventas</a>
+            <a href="consultaVentasPersonalizadas.html">Consulta de ventas personalizadas</a>
+            <a href="verSucursales.html">Ver sucursales</a>
+            <a href="entrgas.html">Ver entregas</a>
+        </nav>
+    </section>
     <section id="infoReporte">
         <div >GUID Reporte: <span id="GUIDReporte">*</span></div><br>
         <div >Fecha limite para entragar el reporte: <span id="fechaLimiteReporte"></span></div><br>

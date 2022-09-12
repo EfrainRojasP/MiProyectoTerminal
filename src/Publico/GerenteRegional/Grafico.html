@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reportes entregados</title>
+    <title>Grafico</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../JavaScript/validar.js"></script>
-    <script src="../JavaScript/Cargadores/CargarReporteEntregados.js"></script>
+    <link rel="stylesheet" href="../Estilos/grafico.css">
     <link rel="stylesheet" href="../Estilos/menu.css">
-    <link rel="stylesheet" href="../Estilos/tabla.css">
 </head>
 <body>
     <section class="menuBar">
@@ -20,9 +20,10 @@
             <a href="solicitarReporte.html">Solicitar reporte</a>
         </nav>
     </section>
-    <header>Reportes entregados: <span id="reportesEntrgados">0</span>/<span id="reportesPedidos">0</span></header>
-    <section id="contendTablaDeEntrgados">
-        <table id="tblReportes" class="styled-table"></table>
-    </section>
+    <section id="tituloGrafico"></section>
+    <div id="grafico">
+        <canvas id="miGrafico"></canvas>
+    </div>
+    <script src="../JavaScript/Cargadores/CargarGrafico.js"></script>
 </body>
 </html>
