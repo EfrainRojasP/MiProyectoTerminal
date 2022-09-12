@@ -44,8 +44,9 @@ export class ManagerConfirmacionPorCorreo{
         try {
             const tokenEncargado = extraerToken(authorization);
             this.correoUsuario = await this.token.extraerEmail(tokenEncargado);
-            console.log("COREERO " + this.correo);
+            console.log("COREERO " + this.correoUsuario);
             this.oAuth2 = this.generarOAuth2();
+            this.oAuth2.setCredentials({refresh_token: process.env.REFRESH_TOKEN});
             const accesToken = await this.oAuth2.getAccessToken();
             const tranporter = nodemailer.createTransport({
                 service: "gmail",
@@ -65,7 +66,7 @@ export class ManagerConfirmacionPorCorreo{
             const result = await tranporter.sendMail(this.correo);
             return true;
         } catch (error) {
-            console.error("ERROR AL ENVIAR CORREO " + error);
+            console.error("ERROR AL ENVIAR CORREO " + error.stack);
             return false;
         }
     }
