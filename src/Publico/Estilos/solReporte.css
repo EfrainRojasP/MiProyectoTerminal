@@ -1,0 +1,48 @@
+#programarEntrega{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #FFf;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 
+                0 8px 16px rgba(0, 0, 0, .1);
+    height: 450px;
+    width: 500px;
+    margin: 20px 0px 0px 350px;
+    border-radius: 15px;
+}
+
+
+#fechaEntrega{
+    margin: 15px;
+}
+
+#descripcionRpo{
+    margin: 15px;
+}
+
+#btnSolicitar{
+    margin: 15px;
+}
+
+html{
+    background-color: #f0f2f5;
+}
+
+
+
+label{
+    font-size: 20px;
+}
+
+input{
+    font-size: 15px;
+}
+
+button{
+    font-size: 15px;
+}
+
+select{
+    font-size: 15px;
+}

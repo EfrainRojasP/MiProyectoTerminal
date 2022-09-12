@@ -1,0 +1,20 @@
+#grafico{
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+select{
+    height: 30px;
+    font-size: 20px;
+}
+
+button{
+    height: 30px;
+    font-size: 20px;
+}
+
+html{
+    background-color: #f0f2f5;
+}

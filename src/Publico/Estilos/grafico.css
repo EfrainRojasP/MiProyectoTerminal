@@ -1,0 +1,14 @@
+#tituloGrafico{
+    text-align: center;
+    font-size: 30px;
+    margin: 10px 0px 30px 0px;
+}
+
+#grafico{
+    overflow: scroll;
+    height:500px;
+}
+
+html{
+    background-color: #f0f2f5;
+}

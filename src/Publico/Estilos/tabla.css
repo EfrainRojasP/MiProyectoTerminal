@@ -1,0 +1,44 @@
+.styled-table {
+    border-collapse: collapse;
+    margin: 15px 0;
+    font-size: 1em;
+    font-family: sans-serif;
+    min-width: 150px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.styled-table thead tr{
+    background-color: azure;
+    color: black;
+    text-align: middle;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 5px 7px;
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid azure;
+}
+
+#tablaConsulta {
+    overflow:scroll;
+    height:500px;
+    margin: 15px 0px 15px 0px;
+}
+
+html{
+    background-color: #f0f2f5;
+}

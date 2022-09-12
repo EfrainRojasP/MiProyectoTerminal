@@ -1,0 +1,40 @@
+#contend {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#logoUAM{
+    height: 70px;
+}
+
+#tituloProyecto{
+    font-size: 28px;
+    font-weight: normal;
+    width: 500px;
+}
+
+#contendLogin{
+    text-align: center;
+}
+
+
+
+#nombreUsario, #passUsuario, #entrar{
+    border-radius: 6px;
+    font-size: 17px;
+    width: 350px;
+    margin: 14px 16px;
+}
+
+#contendLogin{
+    background-color: #FFf;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 
+                0 8px 16px rgba(0, 0, 0, .1);
+    padding: 60px;
+    border-radius: 15px;
+}
+
+html{
+    background-color: #f0f2f5;
+}

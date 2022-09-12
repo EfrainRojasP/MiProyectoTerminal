@@ -1,0 +1,11 @@
+
+
+html{
+    background-color: #f0f2f5;
+}
+
+#contendVentas {
+    overflow:scroll;
+    height:500px;
+    margin: 15px 0px 15px 0px;
+}
