@@ -4,13 +4,15 @@ import { Token } from "../Modulo_AutentificacionAutorizacion/Token.js";
 import { ManagerConsultas } from "./ManagerConsultas.js";
 
 const peticionesGerente = Router();
+export const peticionesEngardao = Router();
 
 peticionesGerente.post("/TodasLasVentas", async (req, res) =>{
-    console.log("PETICION DE VENTAS");
+    //console.log("PETICION DE VENTAS");
     const { authorization } = req.headers;
     const tokenGerente = authorization.substring(7)
     const token = new Token();
     const GUID = await token.extraerGUID(tokenGerente);
+    //console.log("DASDSADSADSADA "  + GUID);
     const mc = new ManagerConsultas(GUID);
     const resConsulta = await mc.consultarTodasLasVentas();
     if(!resConsulta){
@@ -20,12 +22,12 @@ peticionesGerente.post("/TodasLasVentas", async (req, res) =>{
 });
 
 peticionesGerente.post("/ConsultaPersonalizada", async (req, res) =>{
-    console.log("ENTREEEEEEEEEEEEEEEE");
+    //console.log("ENTREEEEEEEEEEEEEEEE");
     const { authorization } = req.headers;
-    console.log("dawdwad " + authorization);
+    //console.log("dawdwad " + authorization);
     const consultaPer = req.body;
-    console.log(JSON.stringify(consultaPer));
-    console.log(consultaPer.porProducto);
+    //console.log(JSON.stringify(consultaPer));
+    //console.log(consultaPer.porProducto);
     const tokenGerente = extraerToken(authorization);
     const token = new Token();
     const GUID = await token.extraerGUID(tokenGerente);
@@ -39,7 +41,7 @@ peticionesGerente.post("/ConsultaPersonalizada", async (req, res) =>{
 });
 
 peticionesGerente.post("/SucursaresACargo", async (req, res) =>{
-    console.log("PETICION DE VENTAS");
+    //console.log("PETICION DE VENTAS");
     const { authorization } = req.headers;
     const tokenGerente = extraerToken(authorization);
     const token = new Token();
@@ -53,7 +55,7 @@ peticionesGerente.post("/SucursaresACargo", async (req, res) =>{
 });
 
 peticionesGerente.post("/SucursaresACargo/MunAlca", async (req, res) =>{
-    console.log("PETICION DE VENTAS");
+    //console.log("PETICION DE VENTAS");
     const { authorization } = req.headers;
     const tokenGerente = extraerToken(authorization);
     const token = new Token();
@@ -67,7 +69,7 @@ peticionesGerente.post("/SucursaresACargo/MunAlca", async (req, res) =>{
 });
 
 peticionesGerente.post("/SucursaresACargo/Entidad", async (req, res) =>{
-    console.log("PETICION DE VENTAS");
+    //console.log("PETICION DE VENTAS");
     const { authorization } = req.headers;
     const tokenGerente = extraerToken(authorization);
     const token = new Token();
@@ -81,7 +83,7 @@ peticionesGerente.post("/SucursaresACargo/Entidad", async (req, res) =>{
 });
 
 peticionesGerente.post("/SucursaresACargo/Producto", async (req, res) =>{
-    console.log("PETICION DE VENTAS");
+    //console.log("PETICION DE VENTAS");
     const { authorization } = req.headers;
     const tokenGerente = extraerToken(authorization);
     const token = new Token();
@@ -96,7 +98,7 @@ peticionesGerente.post("/SucursaresACargo/Producto", async (req, res) =>{
 
 
 peticionesGerente.post("/SucursaresACargo/TipoProducto", async (req, res) =>{
-    console.log("PETICION DE VENTAS");
+    //console.log("PETICION DE VENTAS");
     const { authorization } = req.headers;
     const tokenGerente = extraerToken(authorization);
     const token = new Token();
@@ -149,5 +151,18 @@ peticionesGerente.post("/Reportes/TablaReportes", async (req, res) =>{
     return res.json(resConsulta);
 });
 
+
+peticionesEngardao.post("/FechaEntraga", async(req, res) =>{
+    const { authorization } = req.headers;
+    const tokenGerente = extraerToken(authorization);
+    const token = new Token();
+    const GUID = await token.extraerGUID(tokenGerente);
+    const mc = new ManagerConsultas(GUID);
+    const resConsulta = await mc.consultarFechaEntregaReporteEncargado();
+    if(resConsulta.error){
+        return res.status(403).json(resConsulta);
+    }
+    return res.json(resConsulta);
+});
 
 export default peticionesGerente;
