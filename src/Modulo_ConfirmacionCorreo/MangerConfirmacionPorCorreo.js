@@ -12,12 +12,20 @@ export class ManagerConfirmacionPorCorreo{
     oAuth2;
     correoUsuario;
 
+    /**
+     * Constructor
+     * @param {String} correoUsuario 
+     */
     constructor(correoUsuario) {
         this.correoUsuario = correoUsuario;
         this.correo = new Correo();
         this.token = new Token();
     }
 
+    /**
+     * Metodo que genera la utentificacion OAuth2
+     * @returns Devuelve la autentificacion OAuth2
+     */
     generarOAuth2(){
         const oAuth2 = new google.auth.OAuth2(process.env.ID_CLIENTE, process.env.SECRETO_CLIENTE, process.env.REDIRECT_URL);
 
@@ -26,6 +34,12 @@ export class ManagerConfirmacionPorCorreo{
         return oAuth2;
     }
 
+    /**
+     * Metodo que envia el correo
+     * @param {String} authorization Token
+     * @returns Devuelve True, si todo slio bien
+     * @returns Devuelve False, si hubo un error
+     */
     async enviarCorreo(authorization){
         try {
             const tokenEncargado = extraerToken(authorization);
