@@ -40,7 +40,7 @@ export class ReporteDB {
      * @returns Devulve FALSE, si algo salio mal
      */
     insertarReporteEncargado(arrReporteEncargado) {
-        console.log(arrReporteEncargado);
+        //console.log(arrReporteEncargado);
         return new Promise((resolve, reject) => {
             const stm = "CALL InsertarReporteEncargado (?,?)";
             const query = this.mysqlDBReporte.query(stm, arrReporteEncargado, function (error, results, fields) {
@@ -50,6 +50,20 @@ export class ReporteDB {
                     return reject(error.stack)
                 }
                 return resolve(true);
+            });
+        });
+    }
+
+    actualizarEstadoReporte(id){
+        return new Promise((resolve, reject) => {
+            const sql = "UPDATE Empleado_Reporte_Estado SET FK_idEstadoReporte = 1 WHERE idERES = ?";
+            const query = this.mysqlDBReporte.query(sql, id, function(error, results, fields){
+                if(error){
+                    console.error("ERROR EN LA DBReportes " + error);
+                    return reject(error.stack);
+                }
+                //console.log("CUANTAS " + results.affectedRows);
+                resolve(/*true*/);
             });
         });
     }
@@ -152,6 +166,65 @@ export class ReporteDB {
                 let result = convertirRespuestaAObjeto(results[0]);
                 //console.log(result);
                 return resolve(result);
+            });
+        });
+    }
+
+    /**
+     * Consulta al BD el ultimo id el reporte que se le asigno al Encargado
+     * @param {String} GUID GUID del encargado 
+     * @returns Devulve el id del ultimo reporte que se le asigno al encargado
+     */
+    consultarIdERES(GUID){
+        return new Promise((resolve, reject) => {
+            const sql = "SELECT ObtenerIdEmpRepSuc(?)";
+            const query = this.mysqlDBReporte.query(sql, GUID, function(error, results, fields){
+                if(error){
+                    console.error("ERROR EN CONSULTAR IdERES " + error);
+                    reject(error.stack);
+                }
+                let result = convertirRespuestaAObjeto(results[0]);
+                //console.log(result);
+                return resolve(result[0]);
+            });
+        });
+    }
+
+    /**
+     * Obtiene el estado del reporte, si esta entregado o no entregado
+     * @param {String} GUID GUID del encargado 
+     * @returns Devulve el estado del reporte
+     */
+    consultarEntregaEncargado(GUID){
+        return new Promise((resolve, reject) => {
+            const sql = "SELECT ObtenerEstadoReporteEncargado(?)";
+            const query = this.mysqlDBReporte.query(sql, GUID, function(error, results, fields){
+                if(error){
+                    reject(error.stack);
+                    console.error("ERROR EN CONSULTAR entrega" + error);
+                }
+                let result = convertirRespuestaAObjeto(results[0]);
+                //console.log(result);
+                resolve(result[0]);
+            });
+        });
+    }
+
+    /**
+     * Consulta la fecha limite del reporte
+     * @param {String} GUID GUID del encargado
+     * @returns Devuelve la fecha limite del reporte
+     */
+    consultarFechaLimiteReporteEncargado(GUID){
+        return new Promise((resolve, reject) => {
+            const sql = "SELECT fechaLimite FROM Informacion_Reporte_Entrega WHERE GUIDEmpleado = ? ORDER BY ideres DESC LIMIT 1"
+            const query = this.mysqlDBReporte.query(sql, GUID, function(error, results, fields){
+                if(error){
+                    reject(error.stack);
+                    console.error("ERROR EN CONSULTAR entrega" + error);
+                }
+                let result = convertirRespuestaAObjeto(results[0]);
+                resolve(refectorizarFecha(result[0], 3));
             });
         });
     }
