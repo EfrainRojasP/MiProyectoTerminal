@@ -6,25 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subir reporte</title>
     <script src="../JavaScript/validar.js"></script>
+    <script src="../JavaScript/Peticiones/VerificarReporteEntregado.js"></script>
+    <link rel="stylesheet" href="../Estilos/encargadoSubir.css">
 </head>
 <body>
-    <header id="infoGerente">
-        <p>Encargado: </p><p id="nombreEncargado"></p><p>Tienda a cargo</p><p id="nomTiendaCargo"></p>
-        <p>Registro: </p><p id="registroTienda"></p>
-    </header>
     <section id="contend">
-        <p>La fecha limite para subir el resporte es el: <span id="fechaLimite"></span></p>
-        <div id="contendForm">
+        <h2 id="fecha">La fecha limite para subir el resporte es el: <span id="fechaLimite"></span></h2>
+        <!--<div id="contendForm">-->
             <form action="" method="post" enctype=multipart/form-data> 
-                <label for="archivoSubir">
-                    Ingrese un archivo CSV o EXCEL: <br>
-                    <input required type="file" name="archivoSubir" id="archivoSubir"><br>
-                </label>
-                <button type="submit" id="btnEnvia">Enviar</button><button type="reset" id="btnCancela">Cancelar</button>
+                <div>
+                    <label for="archivoSubir">
+                        Ingrese un archivo CSV: <br>
+                        <input required type="file" name="archivoSubir" id="archivoSubir">
+                    </label>
+                </div>
+                <div>
+                    <button type="submit" id="btnEnvia">Enviar</button>
+                    <button type="reset" id="btnCancela">Cancelar</button>
+                </div>
+                <div id="estado"></div>
             </form>
-        </div>
+        <!--</div>-->
     </section>
     <script src="..\JavaScript\eventosGerenteSubirReporte.js"></script>
     <script src="../JavaScript/Peticiones/SubirArchivo.js"></script>
+    <script src="../JavaScript/Cargadores/CargarFechaEntraga.js"></script>
 </body>
 </html>
