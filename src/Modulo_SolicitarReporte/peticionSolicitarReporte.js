@@ -19,7 +19,7 @@ solicitarReporteGente.post("/SolicitarReporte", async (req, res) =>{
 });
 
 solicitarReporteGente.post("/VerificarReporte", async (req, res) =>{
-    console.log("SOLICITO REPORTE");
+    //console.log("SOLICITO REPORTE");
     const reporteGerente = req.body;
     const { authorization } = req.headers
     const ma = new ManagerSolicitarReporte(reporteGerente, authorization);
