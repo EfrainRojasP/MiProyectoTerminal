@@ -2,7 +2,7 @@ import { crearGUID, extraerToken, fechaAlDia } from "../Ayudas/Ayudas.js";
 import { ConexionReporteDB } from "../ConexionBD/ConexionReporteBD.js";
 import { ConexionVentasDB } from "../ConexionBD/ConexionVentasDB.js";
 import { Token } from "../Modulo_AutentificacionAutorizacion/Token.js";
-import { ConsultarVentas } from "../Modulo_Consultas/Consultas.js";
+import { VentasBD } from "../Modulo_Consultas/VentasBD.js";
 import { Reporte } from "./Reporte.js";
 import { ReporteDB } from "./ReporteBD.js";
 
@@ -26,7 +26,7 @@ export class ManagerSolicitarReporte {
         this.reporteGerente = reporteGerente;
         this.cabeceraAuth = cabeceraAuth;
         this.reporteBD = new ReporteDB(this.conexionMYSQLReporte.getConexion());
-        this.consultaVenta = new ConsultarVentas(this.conexionMYSQLVentas.getConexion());
+        this.consultaVenta = new VentasBD(this.conexionMYSQLVentas.getConexion());
         this.token = new Token();
     }
 
@@ -88,9 +88,9 @@ export class ManagerSolicitarReporte {
     async insertarReporteEncargadoBD() {
         const arrReporteEncargado = [this.GUIDGerente, this.reporte.getGUIDReporte()];
         const estadoInsercion = await this.reporteBD.insertarReporteEncargado(arrReporteEncargado);
-        console.log(estadoInsercion);
+        //console.log(estadoInsercion);
         if (!estadoInsercion) {
-            console.log("EROOOOR");
+            //console.log("EROOOOR");
             return {
                 error: "Tubimos un problema, tranquilo no es cual tuya. Intalo de nuevo o mas tarde"
             }
@@ -112,7 +112,7 @@ export class ManagerSolicitarReporte {
             return GUID;
         }
         const res = await this.reporteBD.informacionReporte(this.GUIDGerente);
-        console.log(res);
+        //console.log(res);
         if (!res) {
             return true;
         }
