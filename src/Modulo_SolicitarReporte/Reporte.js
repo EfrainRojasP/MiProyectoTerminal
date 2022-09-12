@@ -13,7 +13,7 @@ export class Reporte{
     }
 
     /**
-     * Metodo GET
+     * Metodo GET, recupera el GUID del report
      * @returns Devulver el GUID del reporte
      */
     getGUIDReporte(){
@@ -21,7 +21,7 @@ export class Reporte{
     }
 
     /**
-     * Metodo GET
+     * Metodo GET, recupera la fecha de entraga del reporte
      * @returns Devuelve la fecha en que se tiene que entregar el reporte
      */
     getFechaEntraga(){
@@ -29,7 +29,7 @@ export class Reporte{
     }
 
     /**
-     * Metodo GET
+     * Metodo GET, recupera la descripcion del reporte
      * @returns Devulve la descripcion del reporte
      */
     getDescReporte(){
