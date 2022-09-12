@@ -2,7 +2,6 @@ import papa from "papaparse";
 import { extraerToken } from "../Ayudas/Ayudas.js";
 import { ConexionReporteDB } from "../ConexionBD/ConexionReporteBD.js";
 import { ConexionVentasDB } from "../ConexionBD/ConexionVentasDB.js";
-import { conexion } from "../ConexionBD/p.js";
 import { Token } from "../Modulo_AutentificacionAutorizacion/Token.js";
 import { VentasBD } from "../Modulo_Consultas/VentasBD.js";
 import { ReporteDB } from "../Modulo_SolicitarReporte/ReporteBD.js";
