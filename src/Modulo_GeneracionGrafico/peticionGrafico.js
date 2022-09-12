@@ -9,7 +9,7 @@ generarGrafico.post("/GenerarGrafico", (req, res) =>{
     //console.log(graficoGerente);
     const ma = new ManagerGeneracionGrafico(graficoGerente);
     const grafico = ma.generarObjetoGrafico();
-    c//onsole.log(grafico);
+    //console.log(grafico);
     return res.json(grafico);
 });
 
