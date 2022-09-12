@@ -24,7 +24,7 @@ solicitarReporteGente.post("/VerificarReporte", async (req, res) =>{
     const { authorization } = req.headers
     const ma = new ManagerSolicitarReporte(reporteGerente, authorization);
     const resp = await ma.puedoSolicitarReporte();
-    console.log(resp);
+    //console.log("RESP " + resp);
     if(typeof resp !== "object"){
         return res.send();
     }
@@ -32,12 +32,12 @@ solicitarReporteGente.post("/VerificarReporte", async (req, res) =>{
 });
 
 solicitarReporteGente.post("/InformacionReporte", async (req, res) =>{
-    console.log("SOLICITO INFO REPORTE");
+    //console.log("SOLICITO INFO REPORTE");
     const reporteGerente = req.body;
     const { authorization } = req.headers
     const ma = new ManagerSolicitarReporte(reporteGerente, authorization);
     const resp = await ma.informacionReporte();
-    console.log("885 ", resp);
+    //console.log("885 ", resp);
     return res.json(resp)
 });
 
