@@ -2,7 +2,7 @@ import { consulta, consultaFecha, consultaPorCantidad, crearHasMap } from "../Ay
 import { ConexionReporteDB } from "../ConexionBD/ConexionReporteBD.js";
 import { ConexionVentasDB } from "../ConexionBD/ConexionVentasDB.js";
 import { ReporteDB } from "../Modulo_SolicitarReporte/ReporteBD.js";
-import { ConsultarVentas } from "./Consultas.js";
+import { VentasBD } from "./VentasBD.js";
 
 export class ManagerConsultas {
 
@@ -24,7 +24,7 @@ export class ManagerConsultas {
      */
     async consultarTodasLasVentas() {
         const conexionDBventas = new ConexionVentasDB();
-        const consultarVenta = new ConsultarVentas(conexionDBventas.getConexion());
+        const consultarVenta = new VentasBD(conexionDBventas.getConexion());
         const respuesta = await consultarVenta.consultarTodasVentas(this.GUID);
         return respuesta;
     }
@@ -35,7 +35,7 @@ export class ManagerConsultas {
      */
     async consultarSucursalesACargo() {
         const conexionDBventas = new ConexionVentasDB();
-        const consultarVenta = new ConsultarVentas(conexionDBventas.getConexion());
+        const consultarVenta = new VentasBD(conexionDBventas.getConexion());
         const respuesta = await consultarVenta.consultarSucursalesACargo(this.GUID);
         return respuesta;
     }
@@ -47,7 +47,7 @@ export class ManagerConsultas {
      */
     async consultarSucursalesACargo_MunAlca() {
         const conexionDBventas = new ConexionVentasDB();
-        const consultarVenta = new ConsultarVentas(conexionDBventas.getConexion());
+        const consultarVenta = new VentasBD(conexionDBventas.getConexion());
         const respuesta = await consultarVenta.consultarSucursalesACargo_MunAlca(this.GUID);
         return respuesta;
     }
@@ -60,7 +60,7 @@ export class ManagerConsultas {
      */
     async consultarSucursalesACargo_Entidad() {
         const conexionDBventas = new ConexionVentasDB();
-        const consultarVenta = new ConsultarVentas(conexionDBventas.getConexion());
+        const consultarVenta = new VentasBD(conexionDBventas.getConexion());
         const respuesta = await consultarVenta.consultarSucursalesACargo_Entidad(this.GUID);
         return respuesta;
     }
@@ -72,7 +72,7 @@ export class ManagerConsultas {
      */
     async consultarSucursalesACargo_Producto() {
         const conexionDBventas = new ConexionVentasDB();
-        const consultarVenta = new ConsultarVentas(conexionDBventas.getConexion());
+        const consultarVenta = new VentasBD(conexionDBventas.getConexion());
         const respuesta = await consultarVenta.consultarSucursalesACargo_ProductosVendidos(this.GUID);
         return respuesta;
     }
@@ -84,7 +84,7 @@ export class ManagerConsultas {
      */
     async consultarSucursalesACargo_TipoProducto() {
         const conexionDBventas = new ConexionVentasDB();
-        const consultarVenta = new ConsultarVentas(conexionDBventas.getConexion());
+        const consultarVenta = new VentasBD(conexionDBventas.getConexion());
         const respuesta = await consultarVenta.consultarSucursalesACargo_TipoProductosVendidos(this.GUID);
         //console.log("TIPO" + respuesta);
         return respuesta;
@@ -97,11 +97,11 @@ export class ManagerConsultas {
      */
     async consultaPersonalizada(objeto){
         const conexionDBventas = new ConexionVentasDB();
-        const consultarVenta = new ConsultarVentas(conexionDBventas.getConexion());
+        const consultarVenta = new VentasBD(conexionDBventas.getConexion());
         const arr = this.crearConsultaPersonalizada(objeto);
         const stm = arr[0];
         const arrArgumentos = arr[1];
-        console.log(stm + " " + arrArgumentos);
+        //console.log(stm + " " + arrArgumentos);
         const respuesta = await consultarVenta.consultaPersonalizada(stm, arrArgumentos);
         return respuesta;
     }
@@ -188,5 +188,21 @@ export class ManagerConsultas {
         return respuesta;
     }
 
+    /**
+     * Consulta la fecha limite del reporte que el encardo tiene que subir
+     * @returns Devuelve la fecha limite del reporte
+     * @returns O Devulve un objeto con un mensaje de error
+     */
+    async consultarFechaEntregaReporteEncargado(){
+        const conexionDBReporte = new ConexionReporteDB();
+        const consultarReporte= new ReporteDB(conexionDBReporte.getConexion());
+        const respuesta = await consultarReporte.consultarFechaLimiteReporteEncargado(this.GUID);
+        if(!respuesta){
+            return{
+                error: "Tranquilo no es tu culpa, tubimos un error. Vulvelo a intentar mas tarde"
+            }
+        }
+        return respuesta;
+    }
 
 }
