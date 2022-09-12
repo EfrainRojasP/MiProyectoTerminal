@@ -4,7 +4,7 @@ import { SignJWT, jwtVerify } from "jose";
 export class Token{
 
     /**
-     * 
+     * Crea un token
      * @returns Devuelve el token que se creo
      */
     async crearToken(guid, email, tiempoExpiraToken){
@@ -19,10 +19,9 @@ export class Token{
     }
 
     /**
-     * 
-     * @returns 
-     * Devulve verdadero si el token es valido
-     * Devulve false si el token no es valido o ha expirado
+     * Verifica el token
+     * @returns Devulve verdadero si el token es valido
+     * @returns Devulve false si el token no es valido o ha expirado
      */
     async verificarToken(token, loginDB){
         try {
@@ -42,11 +41,11 @@ export class Token{
     }
 
     /**
-     * 
+     * Extre el GUID del usuario
      * @param {jwtVerify} token
      *  Token del usuaio
-     * @returns 
-     *  El GUID del usuario o falso si el token expiro
+     * @returns Devuelve el GUID del usuario
+     * @returns O devulve falso si el token expiro
      */
     async extraerGUID(token){
         try {
@@ -57,6 +56,29 @@ export class Token{
             );
             return payload.guid;
         } catch (error) {
+            console.error("ERROR " + error);
+            return false;
+        }
+    }
+
+
+    /**
+     * Extrae el email del usuaio
+     * @param {jwtVerify} token
+     *  Token del usuaio
+     * @returns Devuelve el email del usuario
+     * @returns O devuelve falso si el token expiro
+     */
+     async extraerEmail(token){
+        try {
+            const enconder = new TextEncoder();
+            const {payload} = await jwtVerify(
+                token,
+                enconder.encode(process.env.KEY_TOKEN)
+            );
+            return payload.email;
+        } catch (error) {
+            console.error("ERROR " + error);
             return false;
         }
     }
