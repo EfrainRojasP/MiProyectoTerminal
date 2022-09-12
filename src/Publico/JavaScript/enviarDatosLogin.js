@@ -26,11 +26,15 @@ formulario.addEventListener("submit", async function (e) {
     } else {
         formulario.action = "../Encargado/EncargadoSubirReporte.html"
     }
+    const date = new Date();
+    const minutos = date.getMinutes();
+    window.localStorage.setItem("minutos", minutos.toString());
+    alert(minutos)
     document.forms[0].submit();
 });
 
 async function peticionFetch(obj) {
-    let response = await fetch('http://localhost:3200/login.html/Ingresar', {
+    let response = await fetch('/login.html/Ingresar', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'

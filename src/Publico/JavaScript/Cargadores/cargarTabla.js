@@ -4,32 +4,39 @@ console.log(tokenT);
 
 
 async function cargarTabla() {
+    const header = document.createElement('thead');
     const tabla = document.getElementById("tablaVentas");
+    tabla.appendChild(header);
     console.log(tabla);
     const ventas = await fetchTablaVentas();
     const cabeceras = ["Fecha de la venta", "Cantidad", "Producto", "Precio", "Sucursal", "Entidad", "Municipio/Alcaldia"];
-    const filaCabecera = tabla.insertRow();
+    const cabeceras2 = ["Fecha_de_la_venta", "Cantidad", "Producto", "Precio"
+    , "Sucursal", "Entidad", "Municipio_Alcaldia"];
+    const filaCabecera = header.appendChild(document.createElement("tr"));
     for (let i = 0; i < cabeceras.length; i++) {
-        const celdaCabecera = filaCabecera.insertCell();
-        const tituloCabecera = document.createTextNode(cabeceras[i]);
-        celdaCabecera.appendChild(tituloCabecera);
+        filaCabecera.appendChild(document.createElement("th")).appendChild(document.createTextNode(cabeceras[i]));
     }
+    const body = document.createElement("tbody");
+    tabla.appendChild(body);
     for (let i = 0; i < ventas.length; i++) {
-        const filaVenta = tabla.insertRow();
+        const filaVenta = body.appendChild(document.createElement("tr"));
         const obj = ventas[i];
+        let k = 0;
         for (const key in obj){
             const value = obj[key];
             if(value !== undefined){
-                const celdaVenta = filaVenta.insertCell();
+                const celdaVenta = filaVenta.appendChild(document.createElement("td"));
+                celdaVenta.setAttribute("class", cabeceras2[k]);
                 const infoVenta = document.createTextNode(value);
                 celdaVenta.appendChild(infoVenta);
+                ++k;
             }
         }
     }
 }
 
 async function fetchTablaVentas() {
-    let response = await fetch('http://localhost:3200/GrenteRegional/TodasLasVentas', {
+    let response = await fetch('/GrenteRegional/TodasLasVentas', {
         method: 'POST',
         headers: {
             'Authorization': 'Bearer ' + tokenT

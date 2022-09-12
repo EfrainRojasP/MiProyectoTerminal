@@ -1,7 +1,7 @@
 //const tokenU
 
 async function peticionFetchConsulta(obj) {
-    let response = await fetch('http://localhost:3200/GrenteRegional/ConsultaPersonalizada', {
+    let response = await fetch('/GrenteRegional/ConsultaPersonalizada', {
         method: 'POST',
         headers: {
             'Authorization': 'Bearer ' + tokenU,
@@ -20,7 +20,7 @@ async function peticionFetchConsulta(obj) {
 
 document.forms[0].addEventListener("submit", async function (e) {
     e.preventDefault();
-    alert(tokenU);
+    //alert(tokenU);
     const consulta = window.localStorage.getItem("consulta");
     const resJSON = await peticionFetchConsulta(consultar);
     if (!resJSON) {

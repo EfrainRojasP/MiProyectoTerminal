@@ -8,7 +8,7 @@ const cualTipoProducto = document.getElementById("cualTipoProd");
 */
 
 async function fetchTiendas(url) {
-    let response = await fetch('http://localhost:3200/GrenteRegional' + url, {
+    let response = await fetch('/GrenteRegional' + url, {
         method: 'POST',
         headers: {
             'Authorization': 'Bearer ' + tokenU

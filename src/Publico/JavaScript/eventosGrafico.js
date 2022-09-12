@@ -3,29 +3,6 @@ const ejeY = document.getElementById("ejeY");
 const pilaX = [0];
 const pilaY = [0];
 
-const generarGrafico = document.getElementById("generarGrafico");
-const cualGrafico = document.getElementById("tipoGrafico");
-const btnGenarar = document.getElementById("btnGenerar");
-
-
-btnGenarar.disabled = true;
-cualGrafico.disabled = true;
-
-generarGrafico.onchange = function(){
-    if(generarGrafico.checked === true){
-        cualGrafico.disabled = false;
-        btnGenarar.disabled = false;
-        ejeX.disabled = false;
-        ejeY.disabled = false;
-        cualGrafico.setAttribute("required", "");
-    } else {
-        cualGrafico.disabled = true;
-        btnGenarar.disabled = true;
-        ejeX.disabled = true;
-        ejeY.disabled = true;
-    }
-}
-
 
 function deshabilitarSeleccion(sleccionId, select) {
     select.options[sleccionId].disabled = true;
@@ -109,3 +86,4 @@ btnGenerar.addEventListener("click", () =>{
     console.log(obj);
     window.localStorage.setItem("grafico", JSON.stringify(obj));
 })
+

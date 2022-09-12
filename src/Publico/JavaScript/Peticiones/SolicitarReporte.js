@@ -1,7 +1,7 @@
 async function fetchSolicitarReporte(reporte) {
     console.log(reporte);
     const tokenGerente = window.localStorage.getItem("access-token");
-    alert("HOLA")
+    //alert("HOLA")
     let response = await fetch("/GerenteRegional/SolicitarReporte",{
         method: "POST",
         headers: {
@@ -17,7 +17,7 @@ async function fetchSolicitarReporte(reporte) {
 
 document.forms[0].addEventListener("submit", async (e) =>{
     e.preventDefault();
-    const solicitarReporte = new SolicitarReporte(fechaDeEntrega.value, descRpot.value);
+    const solicitarReporte = new SolicitarReporte(fechaDeEntrega.value, descRpot.options[descRpot.selectedIndex].text);
     console.log(solicitarReporte);
     window.localStorage.setItem("reporte-solicitado", JSON.stringify(solicitarReporte));
     const response = await fetchSolicitarReporte(solicitarReporte);

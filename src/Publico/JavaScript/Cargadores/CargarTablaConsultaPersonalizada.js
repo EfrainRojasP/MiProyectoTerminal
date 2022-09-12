@@ -11,6 +11,8 @@ function cargarCabeceras(tabla) {
 }
 
 function cargarCuerpoTabla(tabla, tablaRes) {
+    const cabeceras = ["Fecha_de_la_venta", "Cantidad", "Producto", "Precio",
+        "Tipo_Producto", "Sucursal", "Entidad", "Municipio_Alcaldia"];
     const body = document.createElement("tbody");
     tabla.appendChild(body);
     for (let index = 0; index < tablaRes.length; index++) {
@@ -18,21 +20,24 @@ function cargarCuerpoTabla(tabla, tablaRes) {
         //const filaVenta = tabla.insertRow();
         const element = tablaRes[index];
         console.log(typeof element);
+        let k = 0;
         for (const key in element) {
             const value = element[key];
             const celdaVenta = filaVenta.appendChild(document.createElement("td"));
+            celdaVenta.setAttribute("class", cabeceras[k]);
             const infoVenta = document.createTextNode(value);
             celdaVenta.appendChild(infoVenta);
             //const celdaVenta = filaVenta.insertCell();
             //const infoVenta = document.createTextNode(value);
             //celdaVenta.appendChild(infoVenta)
+            ++k;
         }
     }
 }
 
 function cargarTablaPer() {
     const consultaPerRessultado = window.localStorage.getItem("tabla-consultaPer");
-    alert(consultaPerRessultado);
+    //alert(consultaPerRessultado);
     const tablaPer = document.getElementById("tablaResultado");
     cargarCabeceras(tablaPer);
     console.log(JSON.parse(consultaPerRessultado));
