@@ -1,5 +1,6 @@
 import { Router} from "express";
-import { ManagerArchivo } from "./ManagerArchivo.js";
+import { ManagerConfirmacionPorCorreo } from "../Modulo_ConfirmacionCorreo/MangerConfirmacionPorCorreo.js";
+import { ManagerSubirInformacion } from "./ManagerSubirInformacion.js";
 
 
 export const subirInformacion = Router();
@@ -13,12 +14,14 @@ subirInformacion.post("/SubirArchivo", async (req, res, next) =>{
         });
     }
     try {
-        const ma = new ManagerArchivo(CSV);
+        const ma = new ManagerSubirInformacion(CSV);
+        const maEmail = new ManagerConfirmacionPorCorreo();
         const resA = await ma.guardarArchivo(authorization);
-        console.log(resA, " tipo " + typeof resA);
+        //console.log(resA, " tipo " + typeof resA);
         if(typeof resA == "object"){
             return res.status(422).json(resA);
         }
+        await maEmail.enviarCorreo(authorization);
         return res.redirect("../Encargado/EncargadoSinReporte.html");
     } catch (error) {
         console.error("EOROR " + error);
