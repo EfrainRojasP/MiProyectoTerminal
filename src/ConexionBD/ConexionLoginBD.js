@@ -12,6 +12,10 @@ export class ConexionLoginBD{
         database: process.env.DB_LOGIN
     });
 
+    /**
+     * Inicia la conexion con la BD Login
+     * @returns True si todo salio bien
+     */
     iniciarConexionMYSQL(){
         return new Promise((resolve, reject) => {
             this.conexionMYSQL.connect(function (err) {
@@ -23,6 +27,12 @@ export class ConexionLoginBD{
         });
     }
 
+    /**
+     * Consulta el email del usuario en la base de datos
+     * @param {String} email Email del usuario 
+     * @returns Email del usuario
+     * @returns False si no existe el email del usuario
+     */
     consultarEmailUsuario(email){
         return new Promise((resolve, reject) => {
             const stm = "SELECT emailUsuario FROM Usuario WHERE emailUsuario = ?";
@@ -40,6 +50,12 @@ export class ConexionLoginBD{
         })
     }
 
+    /**
+     * Consulta el GUID del usuario
+     * @param {String} email Email del usuario
+     * @returns De vulve el GUID del usuario
+     * @returns False si el GUID no existe
+     */
     consultarGUIDUsuario(email){
         return new Promise((resolve, reject) => {
             const stm = "SELECT guidUsuaio FROM Usuario WHERE emailUsuario = ?";
@@ -57,6 +73,12 @@ export class ConexionLoginBD{
         });
     }
 
+    /**
+     * Consulta el hash de la constraseña de usuario
+     * @param {String} email Email del usuario
+     * @returns Devuelve el has de la contraseña del usuario
+     * @returns Devuelve False si el email de usuario no existe
+     */
     consultarPasswordUsuario(email){
         return new Promise((resolve, reject) => {
             const stm = "SELECT passUsuario FROM Usuario WHERE emailUsuario = ?";
@@ -74,6 +96,11 @@ export class ConexionLoginBD{
         });
     }
 
+    /**
+     * Consulta el rol del usuario
+     * @param {String} email Email del usuario
+     * @returns Devuelve el rol del usuario
+     */
     consultarRolUsuario(email){
         return  new Promise((resolve, reject) => {
             const stm = "SELECT FK_tipoUsuario FROM Usuario WHERE emailUsuario = ?";
