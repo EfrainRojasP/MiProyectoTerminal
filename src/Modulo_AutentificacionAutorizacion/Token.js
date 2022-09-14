@@ -5,6 +5,9 @@ export class Token{
 
     /**
      * Crea un token
+     * @param {String} guid GUID del usuario
+     * @param {String} email Email del usuario
+     * @param {String} tiempoExpiraToken Tiempo en horas que el token dura
      * @returns Devuelve el token que se creo
      */
     async crearToken(guid, email, tiempoExpiraToken){
@@ -20,6 +23,8 @@ export class Token{
 
     /**
      * Verifica el token
+     * @param {String} token Token del usuario
+     * @param {ConexionLoginBD} loginDB Conexion a la BD login
      * @returns Devulve verdadero si el token es valido
      * @returns Devulve false si el token no es valido o ha expirado
      */
