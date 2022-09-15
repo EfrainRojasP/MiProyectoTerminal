@@ -35,7 +35,7 @@ export class ReporteDB {
 
     /**
      * Insertamos un vinculamos el reporte con el encargado
-     * @param {Reporte} reporte 
+     * @param {Array} arrReporteEncargado Arreglo de ecargados de sucursales
      * @returns Devulve TRUE, si la insercion todo salio bien
      * @returns Devulve FALSE, si algo salio mal
      */
@@ -54,6 +54,11 @@ export class ReporteDB {
         });
     }
 
+    /**
+     * Actuliza el estado del reporte, de no estregado a entregado
+     * @param {Number} id 
+     * @returns Devulve true si todo salio bien
+     */
     actualizarEstadoReporte(id){
         return new Promise((resolve, reject) => {
             const sql = "UPDATE Empleado_Reporte_Estado SET FK_idEstadoReporte = 1 WHERE idERES = ?";
@@ -98,7 +103,7 @@ export class ReporteDB {
     /**
      * Obtenemos cuantos reportes solicitamos
      * @param {GUID} GUID GUID del Gerente Regional 
-     * @returns Devulve un objeto con los reportes que solicitamos
+     * @returns Devulve el numeo de reportes que solicito el gerente regional
      * @returns Devulve FALSE, si algo salio mal 
      */
     cuantosReporte(GUID) {
@@ -123,7 +128,7 @@ export class ReporteDB {
     /**
      * Obtenemos cuantos reportes se han entregado
      * @param {GUID} GUID GUID del Gerente Regional 
-     * @returns Devulve un objeto con los reportes entregados
+     * @returns Devulve numero de reportes entregados
      * @returns Devulve FALSE, si algo salio mal  
      */
     cuantosReportesEntregados(GUID) {
@@ -148,7 +153,7 @@ export class ReporteDB {
     /**
      * Obtenemos el estado de los reportes, es decir, si ya o no lo han entregado
      * @param {GUID} GUID GUID del Gerente Regional 
-     * @returns Devulve un objeto con la informacion de los reportes
+     * @returns Devulve vuelve el estado del reporete
      * @returns Devulve FALSE, si algo salio mal 
      */
     consultarEstadoResportes(GUID) {
