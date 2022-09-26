@@ -91,7 +91,7 @@ SELECT * FROM db_reportes.EmpleadoSucursal;
 SELECT * FROM db_reportes.Empleado_ReporteSolicitud;
 
 SELECT * FROM Empleado_Reporte_Estado;
-UPDATE Empleado_Reporte_Estado SET FK_idEstadoReporte = 2 WHERE idERES = 1;
+UPDATE Empleado_Reporte_Estado SET FK_idEstadoReporte = 2 WHERE idERES = 6;
 
 #SELECT * from db_reportes.sucursal;
 
