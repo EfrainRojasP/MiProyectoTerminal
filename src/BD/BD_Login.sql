@@ -36,29 +36,5 @@ END
 //
 DELIMITER ;
 
-#CALL insertar("hdahd", "pepe", "Pepe", "Benitex", "e@gmial.com", "899e", 1);
-
 INSERT INTO TipoUsuario VALUES (NULL, "Gerente Regional");
 INSERT INTO TipoUsuario VALUES (NULL, "Encargado");
-
-SELECT * FROM db_user_login.usuario;
-
-#UPDATE db_user_login.usuario SET emailUsuario = "ddos@gmail.com" WHERE idUsuario = 5;
-
-#UPDATE db_user_login.usuario SET emailUsuario = 'miriam.rojas.p@gmail.com' WHERE idUsuario = 3;
-
-UPDATE db_user_login.usuario SET emailUsuario = 'efrainulisesrojaspina@gmail.com' WHERE idUsuario = 6;
-
-
-/*
-SELECT * FROM TipoUsuario;
-SELECT * FROM db_user_login.usuario;
-SELECT db_user_login.usuario.emailUsuario FROM db_user_login.usuario WHERE db_user_login.usuario.emailUsuario = "efrainulisesrojaspina@gmia.co";
-select passusuario from usuario where emailusuario = "efrainulisesrojaspina@gmial.com";*/
-/*SELECT FK_tipoUsuario FFROM Usuario WHERE emailUsuario = ?;
-"flush privileges";*/
-
-/*
-delete from usuario where guidUsuaio='qXKZ4BZf0EaL9dB1Y1rW';
-DELETE FROM db_user_login.usuario WHERE db_user_login.usuario.guidUsuaio = "qXKZ4BZf0EaL9dB1Y1rW";
-*/
