@@ -2,6 +2,8 @@ DROP DATABASE IF EXISTS db_ventas;
 CREATE DATABASE db_ventas;
 USE db_ventas;
 
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '21350821Dd';
+
 CREATE TABLE TipoEmpleado (
 	idTipoEmpleado INT NOT NULL AUTO_INCREMENT,
     tipoEmpleado VARCHAR(50) NOT NULL,
@@ -113,6 +115,8 @@ INSERT INTO TipoEmpleado VALUES (NULL, "Encargado");
 select * from db_ventas.empleado;
 
 select * from venta;
+
+select * from tipoproducto;
 
 /*
 select * from db_ventas.empleado;
